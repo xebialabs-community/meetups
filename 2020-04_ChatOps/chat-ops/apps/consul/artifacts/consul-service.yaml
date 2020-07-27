@@ -1,0 +1,32 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:xlr:consul"]'
+    workload.cattle.io/targetWorkloadIdNoop: "true"
+    workload.cattle.io/workloadPortBased: "true"
+  labels:
+    cattle.io/creator: norman
+  name: consul
+  namespace: xlr
+  ownerReferences:
+  - apiVersion: apps/v1beta2
+    controller: true
+    kind: deployment
+    name: consul
+    uid: a02b8cc3-1d99-4f82-98d3-086edc95dbe0
+  selfLink: /api/v1/namespaces/xlr/services/consul
+  uid: 82babc52-a74e-4238-9d8f-7ab07b3ecaff
+spec:
+  clusterIP: None
+  ports:
+  - name: default
+    port: 42
+    protocol: TCP
+    targetPort: 42
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-xlr-consul
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

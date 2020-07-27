@@ -1,0 +1,24 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/chat-ops/redis/latest
+  type: udm.DeploymentPackage
+  deployables:
+  - name: redis
+    type: k8s.ResourcesFile
+    placeholders:
+    - RedisVol1
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/redis.yaml"
+  - name: redis-service
+    type: k8s.ResourcesFile
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/redis-service.yaml"
+  applicationDependencies:
+    slackbot-config: '[1.0.0,2.0.0)'
+  undeployDependencies: "true"

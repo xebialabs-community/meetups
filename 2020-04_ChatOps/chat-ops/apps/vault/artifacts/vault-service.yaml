@@ -1,0 +1,24 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:xlr:vault"]'
+  labels:
+    cattle.io/creator: norman
+  name: vault
+  namespace: xlr
+  selfLink: /api/v1/namespaces/xlr/services/vault
+  uid: 416c0224-bab8-49d5-b1cd-f922c5847b70
+spec:
+  clusterIP: None
+  ports:
+  - name: default
+    port: 42
+    protocol: TCP
+    targetPort: 42
+  selector:
+    workloadID_vault: "true"
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

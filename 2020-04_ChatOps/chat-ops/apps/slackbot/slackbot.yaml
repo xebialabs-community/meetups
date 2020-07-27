@@ -1,0 +1,36 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/chat-ops/slackbot/1.1.0
+  type: udm.DeploymentPackage
+  deployables:
+  - name: slack-xlrelease-app-ingress-service
+    type: k8s.ResourcesFile
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/slack-xlrelease-app-service-ingress.yaml"
+  - name: slack-xlrelease-app
+    type: k8s.ResourcesFile
+    placeholders:
+    - SlackBotVol1
+    - SlackBotIP
+    - SlackBotURL
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/slack-xlrelease-app.yaml"
+  - name: slack-xlrelease-app-ingress
+    type: k8s.ResourcesFile
+    placeholders:
+    - SlackBotIP
+    - SlackBotURL
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/slack-ingress.yaml"
+  applicationDependencies:
+    redis: latest
+    slackbot-config:
+  undeployDependencies: "true"

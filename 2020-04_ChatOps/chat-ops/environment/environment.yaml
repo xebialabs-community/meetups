@@ -1,0 +1,35 @@
+---
+apiVersion: xl-deploy/v1
+kind: Environments
+spec:
+- directory: Environments/chat-ops
+  children:
+  - name: CHATOPS
+    type: udm.Environment
+    members:
+    - Infrastructure/as-code-meetup/myrancher/slack-bots
+    dictionaries:
+    - Environments/chat-ops/redis-dict
+    - Environments/chat-ops/slackbot-dict
+    - Environments/chat-ops/consul-dict
+    - Environments/chat-ops/vault-dict
+  - name: redis-dict
+    type: udm.Dictionary
+    entries:
+      RedisVol1: !value "RedisVol1"
+  - name: slackbot-dict
+    type: udm.Dictionary
+    entries:
+      SlackBotVol1: !value "SlackBotVol1"
+      SlackBotURL: !value "SlackBotURL"
+      SlackBotIP: !value "SlackBotIP"
+  - name: consul-dict
+    type: udm.Dictionary
+    entries:
+      ConsulVol1: !value "ConsulVol1"
+  - name: vault-dict
+    type: udm.Dictionary
+    entries:
+      VaultURL: !value "VaultURL"
+      VaultVol2: !value "VaultVol2"
+      VaultVol3: !value "VaultVol3"

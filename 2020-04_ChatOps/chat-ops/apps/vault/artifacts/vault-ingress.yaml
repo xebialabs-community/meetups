@@ -1,0 +1,25 @@
+﻿apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["{{SlackBotIP}}"],"port":80,"protocol":"HTTP","serviceName":"xlr:ingress-vault-app","ingressName":"xlr:vault","hostname":"{{VaultURL}}","path":"/","allNodes":true}]'
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  labels:
+    cattle.io/creator: norman
+  name: vault
+  namespace: xlr
+  selfLink: /apis/extensions/v1beta1/namespaces/xlr/ingresses/vault
+  uid: 50100a60-eefd-4895-aed0-2707e0f4154c
+spec:
+  rules:
+  - host: {{VaultURL}}
+    http:
+      paths:
+      - backend:
+          serviceName: ingress-vault-app
+          servicePort: 8200
+        path: /
+status:
+  loadBalancer:
+    ingress:
+    - ip: {{SlackBotIP}}

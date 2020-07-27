@@ -1,0 +1,75 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    cattle.io/creator: norman
+    workload.user.cattle.io/workloadselector: deployment-xlr-vault
+  name: vault
+  namespace: xlr
+  selfLink: /apis/apps/v1/namespaces/xlr/deployments/vault
+  uid: d7f5e141-4f8a-4726-85af-31d3f21f6dcb
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-xlr-vault
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+      creationTimestamp: null
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-xlr-vault
+    spec:
+      containers:
+      - args:
+        - server
+        - -config=/config/vault.hcl
+        image: vault
+        imagePullPolicy: IfNotPresent
+        name: vault
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - IPC_LOCK
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /data
+          name: vol1
+        - mountPath: /config
+          name: vol2
+        - mountPath: /scripts
+          name: vol3
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: {{ConsulVol1}}
+          type: ""
+        name: vol1
+      - hostPath:
+          path: {{VaultVol2}}
+          type: ""
+        name: vol2
+      - hostPath:
+          path: {{VaultVol3}}
+          type: ""
+        name: vol3

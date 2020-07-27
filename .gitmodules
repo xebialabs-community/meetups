@@ -13,3 +13,9 @@
 [submodule "2020-03_Jython_Tutor/xld-custom-report-plugin"]
 	path = 2020-03_Jython_Tutor/xld-custom-report-plugin
 	url = https://github.com/xebialabs-community/xld-custom-report-plugin
+[submodule "2020-04_ChatOps/slack-xlrelease-app"]
+	path = 2020-04_ChatOps/slack-xlrelease-app
+	url = https://github.com/xebialabs-community/slack-xlrelease-app.git
+[submodule "2020-04_ChatOps/xlr-slack-plugin"]
+	path = 2020-04_ChatOps/xlr-slack-plugin
+	url = https://github.com/xebialabs-community/xlr-slack-plugin.git

@@ -1,0 +1,29 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:xlr:vault"]'
+  labels:
+    cattle.io/creator: norman
+  name: ingress-vault-app
+  namespace: xlr
+  ownerReferences:
+  - apiVersion: v1beta1/extensions
+    controller: true
+    kind: Ingress
+    name: vault
+    uid: 50100a60-eefd-4895-aed0-2707e0f4154c
+  selfLink: /api/v1/namespaces/xlr/services/ingress-vault-app
+  uid: ad54ffa4-e855-495b-8177-1db52670cc20
+spec:
+  clusterIP: 10.43.13.196
+  ports:
+  - port: 8200
+    protocol: TCP
+    targetPort: 8200
+  selector:
+    workloadID_ingress-vault-app: "true"
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

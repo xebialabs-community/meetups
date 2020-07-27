@@ -1,0 +1,25 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/chat-ops/consul/latest
+  type: udm.DeploymentPackage
+  deployables:
+  - name: consul
+    type: k8s.ResourcesFile
+    placeholders:
+    - ConsulVol1
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/consul-app.yaml"
+  - name: consul-service
+    type: k8s.ResourcesFile
+    placeholders:
+    - ConsulVol1
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/consul-service.yaml"
+  applicationDependencies:
+    slackbot-config: ""

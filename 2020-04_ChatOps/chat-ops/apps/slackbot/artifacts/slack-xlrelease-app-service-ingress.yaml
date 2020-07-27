@@ -1,0 +1,29 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    field.cattle.io/targetWorkloadIds: '["deployment:xlr:slack-xlrelease-app"]'
+  labels:
+    cattle.io/creator: norman
+  name: ingress-slack-xlrelease-app
+  namespace: xlr
+  ownerReferences:
+  - apiVersion: v1beta1/extensions
+    controller: true
+    kind: Ingress
+    name: slack
+    uid: 16cca648-9f67-48b1-a7f8-96f8192f2132
+  selfLink: /api/v1/namespaces/xlr/services/ingress-slack-xlrelease-app
+  uid: 2929d27b-0f77-41e8-b600-18399404c3ab
+spec:
+  clusterIP: 10.43.167.66
+  ports:
+  - port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    workloadID_ingress-slack-xlrelease-app: "true"
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

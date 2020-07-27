@@ -1,0 +1,41 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/chat-ops/vault/latest
+  type: udm.DeploymentPackage
+  deployables:
+  - name: vault-service
+    type: k8s.ResourcesFile
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/vault-service.yaml"
+  - name: vault-ingress-service
+    type: k8s.ResourcesFile
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/vault-service-ingress.yaml"
+  - name: vault-ingress
+    type: k8s.ResourcesFile
+    placeholders:
+    - SlackBotIP
+    - VaultURL
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/vault-ingress.yaml"
+  - name: vault
+    type: k8s.ResourcesFile
+    placeholders:
+    - ConsulVol1
+    - SlackBotIP
+    - VaultURL
+    - VaultVol3
+    mergePatchType: strategic
+    propagationPolicy: Foreground
+    updateMethod: patch
+    file: !file "artifacts/vault-app.yaml"
+  applicationDependencies:
+    consul: latest

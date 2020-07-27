@@ -1,0 +1,20 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/chat-ops/slackbot-config/1.1.0
+  type: udm.DeploymentPackage
+  deployables:
+  - name: slackbotmap
+    type: k8s.ConfigMapSpec
+    configMapName: slackbotmap
+    data:
+      CLIENT_SECRET: !value "CLIENT_SECRET"
+      CLIENT_ID: !value "CLIENT_ID"
+      REDIS_PORT: "6379"
+      REDIS_PASSWORD: !value "REDIS_PASSWORD"
+      VAULT_TOKEN: !value "VAULT_TOKEN"
+      VAULT_URL: http://vault:8200
+      POLLING_TIME: "10"
+      SIGNING_SECRET: !value "SIGNING_SECRET"
+      REDIS_HOST: redis

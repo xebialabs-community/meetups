@@ -1,0 +1,72 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "35"
+    field.cattle.io/creatorId: user-lb8bd
+    field.cattle.io/publicEndpoints: '[{"addresses":["{{SlackBotIP}}"],"port":80,"protocol":"HTTP","serviceName":"xlr:ingress-0e422230df4a09e739964d55927e26bd","ingressName":"xlr:slack","hostname":"{{SlackBotURL}}","path":"/","allNodes":true}]'
+  generation: 46
+  labels:
+    workload.user.cattle.io/workloadselector: deployment-xlr-slack-xlrelease-app
+  name: slack-xlrelease-app
+  namespace: xlr
+  selfLink: /apis/apps/v1/namespaces/xlr/deployments/slack-xlrelease-app
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-xlr-slack-xlrelease-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-xlr-slack-xlrelease-app
+    spec:
+      containers:
+      - args:
+        - pipenv
+        - run
+        - gunicorn
+        - app:app
+        - -b
+        - 0.0.0.0:5000
+        - -w
+        - "3"
+        envFrom:
+        - configMapRef:
+            name: slackbotmap
+            optional: false
+        image: xebialabsunsupported/slack-xlrelease-app:1.1.0
+        imagePullPolicy: Always
+        name: slack-xlrelease-app
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities: {}
+          privileged: false
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+        stdin: true
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /opt/xebialabs/slack-xlrelease-app/log
+          name: vol1
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: {{SlackBotVol1}}
+          type: ""
+        name: vol1

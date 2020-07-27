@@ -1,0 +1,23 @@
+﻿apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    field.cattle.io/publicEndpoints: '[{"addresses":["{{SlackBotIP}}"],"port":80,"protocol":"HTTP","serviceName":"xlr:ingress-slack-xlrelease-app","ingressName":"xlr:slack","hostname":"{{SlackBotURL}}","path":"/","allNodes":true}]'
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  generation: 3
+  labels:
+    cattle.io/creator: norman
+  name: slack
+  namespace: xlr
+  selfLink: /apis/extensions/v1beta1/namespaces/xlr/ingresses/slack
+spec:
+  rules:
+  - host: {{SlackBotURL}}
+    http:
+      paths:
+      - backend:
+          serviceName: ingress-slack-xlrelease-app
+          servicePort: 5000
+        path: /
+  tls:
+  - secretName: bot
