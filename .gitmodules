@@ -1,0 +1,15 @@
+[submodule "2020-03_Jython_Tutor/xlr-jytutor-plugin"]
+	path = 2020-03_Jython_Tutor/xlr-jytutor-plugin
+	url = https://github.com/xebialabs-community/xlr-jytutor-plugin.git
+[submodule "2020-03_Jython_Tutor/xld-jytutor-plugin"]
+	path = 2020-03_Jython_Tutor/xld-jytutor-plugin
+	url = https://github.com/xebialabs-community/xld-jytutor-plugin
+[submodule "2020-03_Jython_Tutor/xlr-jython-code-snippets"]
+	path = 2020-03_Jython_Tutor/xlr-jython-code-snippets
+	url = https://github.com/xebialabs-community/xlr-jython-code-snippets
+[submodule "2020-03_Jython_Tutor/xlr-custom-report-plugin"]
+	path = 2020-03_Jython_Tutor/xlr-custom-report-plugin
+	url = https://github.com/xebialabs-community/xlr-custom-report-plugin
+[submodule "2020-03_Jython_Tutor/xld-custom-report-plugin"]
+	path = 2020-03_Jython_Tutor/xld-custom-report-plugin
+	url = https://github.com/xebialabs-community/xld-custom-report-plugin
