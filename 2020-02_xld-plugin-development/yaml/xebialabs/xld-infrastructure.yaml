@@ -1,0 +1,7 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: Infrastructure/localHost
+  type: overthere.LocalHost
+  os: UNIX

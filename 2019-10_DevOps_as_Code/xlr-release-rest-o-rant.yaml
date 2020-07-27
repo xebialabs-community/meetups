@@ -1,0 +1,5 @@
+apiVersion: xl-release/v1
+kind: Release
+spec:
+  name: Create Rest-O-Rant Application
+  template: as-code-meetup/Create_Rest-O-Rant_Application

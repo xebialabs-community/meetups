@@ -1,0 +1,18 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/myApplication
+  type: udm.Application
+  lastVersion: 1.0.0
+  children:
+  - name: 1.0.0
+    type: udm.DeploymentPackage
+    deployables:
+    - name: myScriptDeployable1
+      type: test.scriptdeployable1
+      createScript: echo "Hello World"
+    - name: myTestDeployable
+      type: test.mytestdeployable
+    - name: myScriptDeployable
+      type: test.scriptdeployable

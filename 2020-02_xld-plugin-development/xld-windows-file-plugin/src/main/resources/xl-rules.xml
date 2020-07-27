@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!--
+    Copyright 2019 XEBIALABS
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<rules xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.xebialabs.com/xl-deploy/xl-rules" >
+
+   <rule name="createWindowsFolder" scope="deployed">
+      <conditions>
+         <type>file.CopiedWindowsFolder</type>
+         <operation>CREATE</operation>
+      </conditions>
+      <steps>
+         <powershell>
+            <order>30</order>
+            <description expression="true">"Copy files to folder  %s" % deployed.targetPath</description>
+            <script>windowsFile/create-windows-folder.ps1</script>
+            <target-host expression="true">deployed.container.host</target-host>
+         </powershell>
+      </steps>
+   </rule>
+
+   <rule name="updateWindowsFolder" scope="deployed">
+      <conditions>
+         <type>file.CopiedWindowsFolder</type>
+         <operation>MODIFY</operation>
+      </conditions>
+      <steps>
+         <powershell>
+            <order>30</order>
+            <description expression="true">"Update files in folder  %s" % deployed.targetPath</description>
+            <script>windowsFile/modify-windows-folder.ps1</script>
+            <target-host expression="true">deployed.container.host</target-host>
+         </powershell>
+      </steps>
+   </rule>
+
+   <rule name="distroyWindowsFolder" scope="deployed">
+      <conditions>
+         <type>file.CopiedWindowsFolder</type>
+         <operation>DESTROY</operation>
+         <operation>MODIFY</operation>
+      </conditions>
+      <steps>
+         <powershell>
+            <order>20</order>
+            <description expression="true">"Remove files from folder  %s" % previousDeployed.targetPath</description>
+            <script>windowsFile/destroy-windows-folder.ps1</script>
+            <target-host expression="true">previousDeployed.container.host</target-host>
+         </powershell>
+      </steps>
+   </rule>
+
+   <rule name="createWindowsFile" scope="deployed">
+      <conditions>
+         <type>file.CopiedWindowsFile</type>
+         <operation>CREATE</operation>
+      </conditions>
+      <steps>
+         <powershell>
+            <order>30</order>
+            <description expression="true">"Copy %s to  %s" % (deployed.name, deployed.targetPath)</description>
+            <script>windowsFile/create-windows-file.ps1</script>
+            <target-host expression="true">deployed.container.host</target-host>
+         </powershell>
+      </steps>
+   </rule>
+
+   <rule name="updateWindowsFile" scope="deployed">
+      <conditions>
+         <type>file.CopiedWindowsFile</type>
+         <operation>MODIFY</operation>
+      </conditions>
+      <steps>
+         <powershell>
+            <order>30</order>
+            <description expression="true">"Update %s " % deployed.name</description>
+            <script>windowsFile/modify-windows-file.ps1</script>
+            <target-host expression="true">deployed.container.host</target-host>
+         </powershell>
+      </steps>
+   </rule>
+
+   <rule name="distroyWindowsFile" scope="deployed">
+      <conditions>
+         <type>file.CopiedWindowsFile</type>
+         <operation>DESTROY</operation>
+         <operation>MODIFY</operation>
+      </conditions>
+      <steps>
+         <powershell>
+            <order>20</order>
+            <description expression="true">"Remove %s " % previousDeployed.name</description>
+            <script>windowsFile/destroy-windows-file.ps1</script>
+            <target-host expression="true">previousDeployed.container.host</target-host>
+         </powershell>
+      </steps>
+   </rule>
+
+
+</rules>

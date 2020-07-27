@@ -1,0 +1,11 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: as-code-meetup
+  children:
+  - name: as-code-meetup
+    type: xldeploy.XLDeployServer
+    url: http://xld:4516
+    username: admin
+    password: !value "xldeploy_XLDeployServer_Ecommerce_password"

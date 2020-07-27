@@ -1,0 +1,33 @@
+2020-02-05 20:34:29,171 CRIT Supervisor running as root (no user in config file)
+2020-02-05 20:34:29,180 INFO supervisord started with pid 1
+2020-02-05 20:34:30,185 INFO spawned: 'xld' with pid 9
+2020-02-05 20:34:31,221 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-05 20:36:33,626 WARN received SIGTERM indicating exit request
+2020-02-05 20:36:33,629 INFO waiting for xld to die
+2020-02-05 20:36:34,860 INFO stopped: xld (terminated by SIGTERM)
+2020-02-05 20:37:18,732 CRIT Supervisor running as root (no user in config file)
+2020-02-05 20:37:18,739 INFO supervisord started with pid 1
+2020-02-05 20:37:19,743 INFO spawned: 'xld' with pid 8
+2020-02-05 20:37:20,771 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-05 20:38:48,315 WARN received SIGTERM indicating exit request
+2020-02-05 20:38:48,316 INFO waiting for xld to die
+2020-02-05 20:38:49,317 INFO stopped: xld (terminated by SIGTERM)
+2020-02-05 20:39:33,450 CRIT Supervisor running as root (no user in config file)
+2020-02-05 20:39:33,455 INFO supervisord started with pid 1
+2020-02-05 20:39:34,459 INFO spawned: 'xld' with pid 8
+2020-02-05 20:39:36,151 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-05 20:40:34,307 WARN received SIGTERM indicating exit request
+2020-02-05 20:40:34,309 INFO waiting for xld to die
+2020-02-05 20:40:35,354 INFO stopped: xld (terminated by SIGTERM)
+2020-02-05 20:41:33,893 CRIT Supervisor running as root (no user in config file)
+2020-02-05 20:41:33,899 INFO supervisord started with pid 1
+2020-02-05 20:41:34,906 INFO spawned: 'xld' with pid 9
+2020-02-05 20:41:36,538 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-05 20:44:08,178 INFO exited: xld (exit status 0; expected)
+2020-02-05 21:17:40,278 WARN received SIGTERM indicating exit request
+2020-02-05 21:18:17,877 CRIT Supervisor running as root (no user in config file)
+2020-02-05 21:18:17,884 INFO supervisord started with pid 1
+2020-02-05 21:18:18,892 INFO spawned: 'xld' with pid 8
+2020-02-05 21:18:20,781 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-05 21:22:01,762 INFO exited: xld (exit status 0; expected)
+2020-02-06 13:18:21,122 WARN received SIGTERM indicating exit request

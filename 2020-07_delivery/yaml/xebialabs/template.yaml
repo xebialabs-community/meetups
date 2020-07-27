@@ -1,0 +1,199 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: delivery-meetup
+  children:
+  - template: micro-service
+    scheduledStartDate: 2020-07-09T13:00:00Z
+    phases:
+    - phase: PLAN
+      tasks:
+      - name: Housekeeping
+        type: xlrelease.ScriptTask
+        script: |-
+          from datetime import date
+
+          if folderVariables['folder.currentChangeTicket'] == "":
+            releaseVariables['changeRequestId'] = "%s" % (int(folderVariables['folder.lastChangeTicket']) + 1)
+            folderVariables['folder.currentChangeTicket'] = "%s" % releaseVariables['changeRequestId']
+            folderVariables['folder.lastChangeTicket'] = "%s" % releaseVariables['changeRequestId']
+            releaseVariables['closeDelivery'] = True
+          else:
+            releaseVariables['changeRequestId'] = folderVariables['folder.currentChangeTicket']
+
+          if releaseVariables['eventApp'] != "":
+            releaseVariables['application'] = releaseVariables['eventApp']
+
+          today = date.today()
+          title = "Release : %s-%s Release %s" % (releaseVariables['application'], releaseVariables['version'], today )
+          print(title)
+          release = getCurrentRelease()
+          release.title = title
+          tags = release.tags
+          tags.append( releaseVariables['changeRequestId'] )
+          release.tags = tags
+          releaseApi.updateRelease(release)
+      - name: Find or Create Delivery
+        type: delivery.FindOrCreateDelivery
+        searchStrategy: Search by criteria
+        nameFilter: '${changeRequestId}: Meetup App Delivery Pattern'
+        fallback: true
+        ^title: '${changeRequestId}: Meetup App Delivery Pattern'
+        pattern: delivery-meetup/meetup
+        variableMapping:
+          pythonScript.deliveryId: ${deliveryId}
+      - name: Register Tracked Item
+        type: delivery.RegisterTrackedItems
+        trackedItems:
+        - ${application}-${version}
+        delivery: ${deliveryId}
+      color: '#0079BC'
+    - phase: DEV
+      tasks:
+      - name: Deploy to DEV
+        type: xlrelease.ScriptTask
+        script: "import time \n\ntime.sleep( ${sleepTime} )"
+      - name: Set Release Item to Dev Complete
+        type: delivery.MarkTrackedItems
+        trackedItems:
+        - ${application}-${version}
+        stage: DEV
+        delivery: ${deliveryId}
+        pattern: delivery-meetup/meetup
+      - name: Hold for Delivery Pattern Transition to QA
+        type: delivery.WaitForStage
+        stage: DEV
+        delivery: ${deliveryId}
+        pattern: delivery-meetup/meetup
+      color: '#0079BC'
+    - phase: QA
+      tasks:
+      - name: Deploy to QA
+        type: xlrelease.ScriptTask
+        script: "import time \n\ntime.sleep( ${sleepTime} )"
+      - name: Set Release Item to QA Complete
+        type: delivery.MarkTrackedItems
+        trackedItems:
+        - ${application}-${version}
+        stage: QA
+        delivery: ${deliveryId}
+        pattern: delivery-meetup/meetup
+      - name: CAB Approval
+        type: delivery.WaitForStage
+        stage: QA
+        delivery: ${deliveryId}
+        pattern: delivery-meetup/meetup
+      color: '#498500'
+    - phase: PROD
+      tasks:
+      - name: Deploy to PROD
+        type: xlrelease.ScriptTask
+        script: "import time \n\ntime.sleep( ${sleepTime} )"
+      - name: Set Release Item to PROD Complete
+        type: delivery.MarkTrackedItems
+        trackedItems:
+        - ${application}-${version}
+        stage: PROD
+        delivery: ${deliveryId}
+        pattern: delivery-meetup/meetup
+      - name: Complete
+        type: xlrelease.ScriptTask
+        precondition: ${closeDelivery}
+        script: |-
+          import com.xebialabs.xlrelease.api.v1.forms.ReleasesFilters as ReleasesFilters
+          import time
+
+          myFilter = ReleasesFilters()
+          tags = []
+          tags.append( releaseVariables['changeRequestId'] )
+          myFilter.setTags( tags )
+          releaseList = releaseApi.searchReleases( myFilter )
+          myRelease = getCurrentRelease()
+
+          loop = True
+          while loop:
+              count = 0
+              for aRelease in releaseList:
+                  print( "%s is %s" % ( aRelease.title, aRelease.status))
+                  if aRelease.id == myRelease.id and aRelease.status == "IN_PROGRESS":
+                      count = count + 1
+              print("total %s found %s" % (len(releaseList), count))
+              if count < 2:
+                  loop = False
+              time.sleep(5)
+          deliveryId = releaseVariables['deliveryId']
+
+          myDelivery = deliveryApi.getDelivery( deliveryId )
+          print(myDelivery)
+
+          myStage = myDelivery.getStageByIdOrTitle("PROD")
+          print(myStage.id)
+
+          try:
+              deliveryApi.completeStage( myStage.id )
+          except:
+              print("Already Done")
+
+
+          folderVariables['folder.currentChangeTicket'] = ""
+      color: '#CC4A3C'
+    variables:
+    - type: xlrelease.StringVariable
+      key: version
+    - type: xlrelease.StringVariable
+      key: application
+      valueProvider:
+        type: xlrelease.ListOfStringValueProviderConfiguration
+        values:
+        - profileService
+        - loginService
+        - newsService
+        - portalUI
+        - newsService
+        - calendarService
+    - type: xlrelease.StringVariable
+      key: changeRequestId
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: deliveryId
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.IntegerVariable
+      key: sleepTime
+      requiresValue: false
+      showOnReleaseStart: false
+      value: 5
+    - type: xlrelease.StringVariable
+      key: eventApp
+      requiresValue: false
+    - type: xlrelease.BooleanVariable
+      key: closeDelivery
+      requiresValue: false
+      showOnReleaseStart: false
+    abortOnFailure: true
+    scriptUsername: !value "scriptUserName"
+    scriptUserPassword: !value "scriptUserPassword"
+    riskProfile: Default risk profile
+  - name: New Application Verison
+    type: events.EventBasedTrigger
+    mappedProperties:
+    - type: xlrelease.StringValue
+      targetProperty: releaseTitle
+      value: New Application Version
+    - type: xlrelease.VariableValue
+      targetProperty: variables[version]
+      variableKey: event.version
+    - type: xlrelease.StringValue
+      targetProperty: variables[application]
+      value: calendarService
+    - type: xlrelease.VariableValue
+      targetProperty: variables[eventApp]
+      variableKey: event.application
+    - type: xlrelease.StringValue
+      targetProperty: template
+      value: micro-service
+    triggerActionType: xlrelease.CreateReleaseFromTemplateAction
+    eventSource: delivery-meetup-endpoint
+    eventType: events.HttpRequestEvent

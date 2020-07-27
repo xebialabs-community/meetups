@@ -1,0 +1,57 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/as-code-meetup
+  children:
+  - directory: rest-o-rant-pod
+    children:
+    - name: rest-o-rant-web-pod
+      type: udm.Application
+      children:
+      - name: "1.0"
+        type: udm.DeploymentPackage
+        deployables:
+        - name: rest-o-rant-web-pod
+          type: k8s.PodSpec
+          containers:
+          - name: rest-o-rant-web-pod-container
+            type: k8s.ContainerSpec
+            containerName: rest-o-rant-web-pod
+            image: xebialabsunsupported/rest-o-rant-web:v1
+            ports:
+            - name: port
+              type: k8s.ContainerPortSpec
+              containerPort: "8080"
+            envVars:
+            - name: EnvVar
+              type: k8s.envVar.KeyValueSpec
+              properties:
+                API_ENDPOINT: http://rest-o-rant-api-service:8080/rest-o-rant-api
+                NGINX_LISTEN: "8080"
+          podName: rest-o-rant-web-pod
+          labels:
+            name: rest-o-rant-web-pod
+        - name: rest-o-rant-web-service
+          type: k8s.ServiceSpec
+          serviceName: rest-o-rant-web-service
+          serviceType: NodePort
+          selectors:
+            name: rest-o-rant-web-pod
+          ports:
+          - name: port
+            type: k8s.ServicePortSpec
+            port: "8080"
+            targetPort: "8080"
+        - name: rest-o-rant-ingress
+          type: k8s.IngressSpec
+          rules:
+          - name: rule1
+            type: k8s.IngressRuleSpec
+            host: rest-o-rant-ingress.default.67.149.64.92.xip.io
+            paths:
+            - name: root
+              type: k8s.IngressPathSpec
+              path: /
+              serviceName: rest-o-rant-web-service
+              servicePort: "8080"

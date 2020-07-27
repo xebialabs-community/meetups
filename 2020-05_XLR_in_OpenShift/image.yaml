@@ -1,0 +1,26 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  labels:
+    app: xl-release
+  name: xl-release
+  namespace: demo-project
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+    - annotations:
+        openshift.io/imported-from: 'xebialabs/xl-release:9.6'
+      from:
+        kind: DockerImage
+        name: 'xebialabs/xl-release:9.6'
+      importPolicy: {}
+      name: '9.6'
+      referencePolicy:
+        type: Source
+status:
+  dockerImageRepository: '172.30.1.1:5000/demo-project/xl-release'
+  tags:
+    - items:
+        - created: '2020-04-30T13:28:09Z'
+      tag: '9.6'

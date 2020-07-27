@@ -1,0 +1,16 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: Infrastructure/as-code-meetup
+  children:
+  - name: myrancher
+    type: k8s.Master
+    apiServerURL: !value "kubeUrl"
+    skipTLS: true
+    token: !value "kubeToken"
+    debug: true
+    children:
+    - name: default
+      type: k8s.Namespace
+      namespaceName: default

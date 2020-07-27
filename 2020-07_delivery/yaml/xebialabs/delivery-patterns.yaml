@@ -1,0 +1,24 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: delivery-meetup
+  children:
+  - pattern: meetup
+    plannedDuration: 1
+    stages:
+    - stage: DEV
+      transition:
+        name: DEV to QA
+        type: delivery.Transition
+        conditions:
+        - type: delivery.ConditionGroup
+          operator: OR
+    - stage: QA
+      transition:
+        name: QA to PROD
+        type: delivery.Transition
+        conditions:
+        - type: delivery.ConditionGroup
+          operator: OR
+    - stage: PROD

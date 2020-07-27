@@ -1,0 +1,69 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: as-code-meetup
+  children:
+  - name: Example
+    type: xlrelease.BlankDashboard
+    owner: admin
+    tiles:
+    - name: Avg. release duration
+      type: xlrelease.AvgReleaseDurationTile
+      row: 0
+      col: 0
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+    - name: Avg. task duration
+      type: xlrelease.AvgTaskDurationTile
+      row: 0
+      col: 1
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+    - name: Deployment activity
+      type: deployment.DeploymentsActivityTile
+      row: 1
+      col: 0
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+    - name: Deployments distribution
+      type: deployment.DeploymentsDistributionTile
+      row: 1
+      col: 1
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+    - name: Deployment success rate
+      type: deployment.DeploymentsSuccessRateTile
+      row: 2
+      col: 2
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+    - name: Current applications
+      type: deployment.CurrentApplicationsTile
+      row: 1
+      col: 2
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+    - name: Task efficiency
+      type: xlrelease.TaskEfficiencyTile
+      row: 0
+      col: 2
+      filters:
+      - type: xlrelease.FolderFilter
+        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+      - type: xlrelease.DateFilter
+      width: 1
+      height: 1
+    columns: 3

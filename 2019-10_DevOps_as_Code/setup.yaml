@@ -1,0 +1,12 @@
+apiVersion: xl/v1
+kind: Import
+metadata:
+  imports:
+    - infrastructure/xld-infrastructure.yaml
+    - infrastructure/xld-environment.yaml
+    - rest-o-rant-api/rest-o-rant-api-pod.yaml
+    - rest-o-rant-web/rest-o-rant-web-pod.yaml
+    - xl-release/xlr-configuration.yaml
+    - xl-release/xlr-pipeline.yaml
+    - xl-release/xlr-pipeline-dashboard.yaml
+    - xl-release/xlr-dashboard.yaml

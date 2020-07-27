@@ -1,0 +1,53 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+  - name: Global
+    type: artifactory.Server
+    url: http://artifactory:8081/artifactory
+    username: admin
+    password: !value "artifactory_Server_Ecommerce_password"
+  - name: Global
+    type: blackduck.Server
+    url: https://blackduck.xebialabs.com
+    username: xebialabs
+    password: !value "blackduck_Server_Ecommerce_password"
+  - name: Global
+    type: fortify.Server
+    url: http://xl-chkmarx-poc.xebialabs.com:9000/ssc/
+    username: admin
+    password: !value "fortify_Server_Ecommerce_password"
+  - name: Global
+    type: git.Repository
+    url: http://gogs:3000/xebialabs/petclinic-artifactory.git
+    username: xebialabs
+    password: !value "git_Repository_Ecommerce_password"
+  - name: Global
+    type: jenkins.Server
+    url: http://jenkins:8080
+    username: admin
+    password: xebialabs
+  - name: Global
+    type: jira.Server
+    url: https://xebialabs.atlassian.net
+    username: !value "jira_user"
+    password: !value "jira_password"
+  - name: Global
+    type: servicenow.Server
+    url: !value "snow_url"
+    username: !value "snow_username"
+    password: !value "snow_password"
+  - name: Global
+    type: slack.Server
+    url: !value "slack_url"
+    userName: !value "slack_user"
+  - name: Global
+    type: sonar.Server
+    url: http://54.227.137.132:9000
+    username: admin
+    password: !value "sonar_Server_Ecommerce_password"
+  - name: Global
+    type: xldeploy.XLDeployServer
+    url: http://xld:4516
+    username: admin
+    password: !value "xldeploy_XLDeployServer_Ecommerce_password"

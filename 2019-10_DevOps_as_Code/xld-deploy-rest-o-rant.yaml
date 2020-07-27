@@ -1,0 +1,13 @@
+---
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+ package: Applications/as-code-meetup/rest-o-rant-pod/rest-o-rant-api-pod/1.0
+ environment: Environments/as-code-meetup/rancherHome
+
+---
+apiVersion: xl-deploy/v1
+kind: Deployment
+spec:
+ package: Applications/as-code-meetup/rest-o-rant-pod/rest-o-rant-web-pod/1.0
+ environment: Environments/as-code-meetup/rancherHome

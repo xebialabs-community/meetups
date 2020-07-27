@@ -1,0 +1,9 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- name: delivery-meetup-endpoint
+  type: events.PostWebhookEndpoint
+  path: d3e33cb60f08844029435a776ab6cd9c
+  authentication:
+    type: events.NoAuthentication

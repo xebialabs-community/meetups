@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: xl-release
+  name: xl-release
+  namespace: demo-project
+spec:
+  ports:
+    - name: 5516-tcp
+      port: 5516
+      protocol: TCP
+      targetPort: 5516
+  selector:
+    deploymentconfig: xl-release
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

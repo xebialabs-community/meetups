@@ -1,0 +1,40 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/as-code-meetup
+  children:
+  - directory: rest-o-rant-pod
+    children:
+    - name: rest-o-rant-api-pod
+      type: udm.Application
+      children:
+      - name: "1.0"
+        type: udm.DeploymentPackage
+        deployables:
+        - name: rest-o-rant-api-service
+          type: k8s.ServiceSpec
+          serviceName: rest-o-rant-api-service
+          serviceType: ClusterIP
+          selectors:
+            name: rest-o-rant-api-pod
+          ports:
+          - name: port
+            type: k8s.ServicePortSpec
+            port: "8080"
+            targetPort: "8080"
+        - name: rest-o-rant-api-pod
+          type: k8s.PodSpec
+          containers:
+          - name: rest-o-rant-api-pod-container
+            type: k8s.ContainerSpec
+            containerName: rest-o-rant-api-pod
+            image: xebialabsunsupported/rest-o-rant-api:v1
+            ports:
+            - name: port
+              type: k8s.ContainerPortSpec
+              hostPort: "8080"
+              containerPort: "8080"
+          podName: rest-o-rant-api-pod
+          labels:
+            name: rest-o-rant-api-pod

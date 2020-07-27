@@ -1,0 +1,44 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: as-code-meetup
+  children:
+  - template: Create_Rest-O-Rant_Application
+    scheduledStartDate: 2019-10-22T13:00:00Z
+    phases:
+    - phase: Deploy
+      tasks:
+      - name: Deploy API
+        type: xldeploy.Deploy
+        server: as-code-meetup
+        deploymentApplication: Applications/as-code-meetup/rest-o-rant-pod/rest-o-rant-api-pod
+        deploymentVersion: "1.0"
+        deploymentPackage: Applications/as-code-meetup/rest-o-rant-pod/rest-o-rant-api-pod/1.0
+        deploymentEnvironment: Environments/as-code-meetup/rancherHome
+      - name: Deploy Web
+        type: xldeploy.Deploy
+        server: as-code-meetup
+        deploymentApplication: Applications/as-code-meetup/rest-o-rant-pod/rest-o-rant-web-pod
+        deploymentVersion: "1.0"
+        deploymentPackage: Applications/as-code-meetup/rest-o-rant-pod/rest-o-rant-web-pod/1.0
+        deploymentEnvironment: Environments/as-code-meetup/rancherHome
+      - name: Verify Application
+        type: xlrelease.GateTask
+        owner: admin
+      color: '#08B153'
+    - phase: Un-Deploy
+      tasks:
+      - name: Un-Deploy Web
+        type: xldeploy.Undeploy
+        server: as-code-meetup
+        deployedApplication: Environments/as-code-meetup/rancherHome/rest-o-rant-web-pod
+      - name: Un-Deploy API
+        type: xldeploy.Undeploy
+        server: as-code-meetup
+        deployedApplication: Environments/as-code-meetup/rancherHome/rest-o-rant-api-pod
+      - name: Veify Un-Deploy
+        type: xlrelease.GateTask
+        owner: admin
+      color: '#D94C3D'
+    riskProfile: Default risk profile

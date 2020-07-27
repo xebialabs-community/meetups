@@ -1,0 +1,57 @@
+apiVersion: xl-release/v1
+kind: Environments
+spec:
+  stages:
+  - Acceptance
+  - Production
+  - Test
+  - Development
+  labels:
+  - name: java
+    color: '#0099cc'
+  - name: dotNET
+    color: '#aa99dd'
+  - name: C++
+    color: '#bb99ee'
+  environments:
+  - name: DEV
+    description: My DEV Environment
+    stage: Development
+    labels:
+    - java
+    - dotNET
+  - name: TEST
+    description: My QA Environment
+    stage: Test
+    labels:
+    - java
+  - name: ACC
+    description: My ACC Environment
+    stage: Acceptance
+    labels:
+    - java
+  - name: UAT
+    description: My UAT Environment
+    stage: Acceptance
+    labels:
+    - java
+  - name: QA
+    description: My QA Environment
+    stage: Test
+    labels:
+    - java
+  - name: PROD
+    description: My PROD Environment
+    stage: Production
+    labels:
+    - java
+---
+apiVersion: xl-release/v1
+kind: Applications
+spec:
+  - name: Pricing Machine Learning
+    environments:
+      - DEV
+      - TEST
+      - ACC
+      - PROD

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2019 XEBIALABS
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<xl:export xmlns:xl="http://www.xebialabs.com/xl-export">
+  <xl:metadata>
+    <xl:exported-by>admin</xl:exported-by>
+    <xl:exported-at>2017-09-28T16:12:38.131+0000</xl:exported-at>
+    <xl:exported-format-version>7.1.0</xl:exported-format-version>
+    <xl:encryption-key-fingerprint>f6094d333c0736339884d1fe38d9c54e14019ac9</xl:encryption-key-fingerprint>
+  </xl:metadata>
+  <xl:exported-configuration-items exported-root-id="/">
+    <udm.DeploymentPackage id="Applications/windowsFolder/1.0.0" created-by="admin" created-at="2017-09-28T14:58:58.096+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.096+0000">
+      <orchestrator />
+      <applicationDependencies />
+      <dependencyResolution>LATEST</dependencyResolution>
+      <undeployDependencies>false</undeployDependencies>
+    </udm.DeploymentPackage>
+    <udm.DeploymentPackage id="Applications/windowsFolder/1.1.0" created-by="admin" created-at="2017-09-28T14:58:58.097+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.097+0000">
+      <orchestrator />
+      <applicationDependencies />
+      <dependencyResolution>LATEST</dependencyResolution>
+      <undeployDependencies>false</undeployDependencies>
+    </udm.DeploymentPackage>
+    <file.WindowsFolder id="Applications/windowsFolder/1.1.0/WindowsFolder" created-by="admin" created-at="2017-09-28T14:58:58.114+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.114+0000" file="Applications/windowsFolder/1.1.0/WindowsFolder/testFiles-1.1.0.zip">
+      <tags />
+      <scanPlaceholders>true</scanPlaceholders>
+      <placeholders />
+      <checksum>de111abd271207af614180d2526839f831375181</checksum>
+      <fileUri>jcr:testFiles-1.1.0.zip</fileUri>
+      <targetPath>D:\windowsFiles</targetPath>
+      <targetPathShared>true</targetPathShared>
+      <createTargetPath>true</createTargetPath>
+      <fileProperties />
+    </file.WindowsFolder>
+    <file.WindowsFolder id="Applications/windowsFolder/1.0.0/WindowsFolder" created-by="admin" created-at="2017-09-28T14:58:58.111+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.111+0000" file="Applications/windowsFolder/1.0.0/WindowsFolder/testFiles-1.0.0.zip">
+      <tags />
+      <scanPlaceholders>true</scanPlaceholders>
+      <placeholders />
+      <checksum>1dc14f4228f7731c5254be8f2ec7761d9b8452de</checksum>
+      <fileUri>jcr:testFiles-1.0.0.zip</fileUri>
+      <targetPath>D:\windowsFiles</targetPath>
+      <targetPathShared>true</targetPathShared>
+      <createTargetPath>true</createTargetPath>
+      <fileProperties />
+    </file.WindowsFolder>
+    <udm.Environment id="Environments/cifsDEV" created-by="admin" created-at="2017-09-28T14:58:58.067+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.067+0000">
+      <members>
+        <ci ref="Infrastructure/gibsonCIFS" />
+      </members>
+      <dictionaries />
+      <triggers />
+    </udm.Environment>
+    <overthere.CifsHost id="Infrastructure/gibsonCIFS" created-by="admin" created-at="2017-09-28T14:58:58.093+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.093+0000">
+      <tags />
+      <puppetPath>/usr/local/bin</puppetPath>
+      <os>WINDOWS</os>
+      <connectionType>WINRM_INTERNAL</connectionType>
+      <address>192.168.2.102</address>
+      <username>root</username>
+      <password>{b64}04FTPo9exAR3rlR1dRTBsw==</password>
+      <winrmEnableHttps>false</winrmEnableHttps>
+      <winrsAllowDelegate>false</winrsAllowDelegate>
+      <pathShareMappings />
+      <cifsPort>445</cifsPort>
+    </overthere.CifsHost>
+    <overthere.SmbHost id="Infrastructure/gibsonSmb" created-by="admin" created-at="2017-09-28T16:05:17.857+0000" last-modified-by="admin" last-modified-at="2017-09-28T16:05:17.857+0000">
+      <tags />
+      <puppetPath>/usr/local/bin</puppetPath>
+      <os>WINDOWS</os>
+      <connectionType>WINRM_INTERNAL</connectionType>
+      <address>192.168.2.102</address>
+      <username>root</username>
+      <password>{b64}04FTPo9exAR3rlR1dRTBsw==</password>
+      <winrmEnableHttps>false</winrmEnableHttps>
+      <winrsAllowDelegate>false</winrsAllowDelegate>
+      <pathShareMappings />
+      <smbPort>445</smbPort>
+    </overthere.SmbHost>
+    <udm.Environment id="Environments/smbDEV" created-by="admin" created-at="2017-09-28T16:06:05.766+0000" last-modified-by="admin" last-modified-at="2017-09-28T16:06:05.766+0000">
+      <members>
+        <ci ref="Infrastructure/gibsonSmb" />
+      </members>
+      <dictionaries />
+      <triggers />
+    </udm.Environment>
+    <file.WindowsFile id="Applications/windowsFolder/1.0.0/synthetic.xml" created-by="admin" created-at="2017-09-28T14:58:58.117+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.117+0000" file="Applications/windowsFolder/1.0.0/synthetic.xml/synthetic.xml">
+      <tags />
+      <scanPlaceholders>true</scanPlaceholders>
+      <placeholders />
+      <checksum>271786c41c4813600334d6b678f9625e57c3ef00</checksum>
+      <fileUri>jcr:synthetic.xml</fileUri>
+      <targetPath>D:\windowsFiles</targetPath>
+      <targetPathShared>true</targetPathShared>
+      <createTargetPath>true</createTargetPath>
+      <fileProperties />
+    </file.WindowsFile>
+    <udm.Application id="Applications/windowsFolder" created-by="admin" created-at="2017-09-28T14:58:58.094+0000" last-modified-by="admin" last-modified-at="2017-09-28T14:58:58.094+0000">
+      <lastVersion>1.1.0</lastVersion>
+    </udm.Application>
+  </xl:exported-configuration-items>
+</xl:export>

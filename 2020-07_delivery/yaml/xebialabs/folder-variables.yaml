@@ -1,0 +1,10 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: delivery-meetup
+  children:
+    folderVariables:
+    - type: xlrelease.StringVariable
+      key: folder.testVariable
+      value: "Hello world"

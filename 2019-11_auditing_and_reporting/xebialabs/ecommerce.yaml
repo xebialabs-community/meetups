@@ -1,0 +1,512 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: audit_and_reporting
+  children:
+  - directory: Data
+    children:
+    - template: Feed
+      scheduledStartDate: 2019-07-26T12:17:28.597Z
+      dueDate: 2019-07-26T13:17:28.597Z
+      phases:
+      - phase: Feed
+        tasks:
+        - name: DEV
+          type: xlrelease.ScriptTask
+          facets:
+          - type: udm.DeploymentTaskFacet
+            variableMapping:
+              version: ${version}
+            application: Pricing Machine Learning
+            environment: DEV
+          script: |-
+            import random
+
+            if random.randint(0, 100) < 25:
+                raise Exception('Failed')
+        - name: TEST
+          type: xlrelease.ScriptTask
+          facets:
+          - type: udm.DeploymentTaskFacet
+            variableMapping:
+              version: ${version}
+            application: Pricing Machine Learning
+            environment: TEST
+          script: |-
+            import random
+
+            if random.randint(0, 100) < 21:
+                raise Exception('Failed')
+        - name: UAT
+          type: xlrelease.ScriptTask
+          facets:
+          - type: udm.DeploymentTaskFacet
+            variableMapping:
+              version: ${version}
+            application: Pricing Machine Learning
+            environment: UAT
+          script: |-
+            import random
+
+            if random.randint(0, 100) < 9:
+                raise Exception('Failed')
+        - name: PROD
+          type: xlrelease.ScriptTask
+          facets:
+          - type: udm.DeploymentTaskFacet
+            variableMapping:
+              version: ${version}
+            application: Pricing Machine Learning
+            environment: PROD
+          script: |-
+            import random
+
+            if random.randint(0, 100) < 6:
+                raise Exception('Failed')
+        color: '#0099CC'
+      variables:
+      - type: xlrelease.StringVariable
+        key: version
+        requiresValue: true
+        showOnReleaseStart: true
+      abortOnFailure: true
+      scriptUsername: admin
+      scriptUserPassword: !value "scriptUserPassword"
+      riskProfile: Default risk profile
+    - template: Seed
+      scheduledStartDate: 2019-07-24T13:00:00Z
+      dueDate: 2019-07-26T13:17:29.019Z
+      phases:
+      - phase: Seed
+        tasks:
+        - name: Seed
+          type: xlrelease.ScriptTask
+          script: |-
+            import time
+
+            templateList = templateApi.getTemplates("Feed")
+            templateId = templateList[0].id
+            for i in range(0, 5):
+                createRel = CreateRelease()
+                createRel.setReleaseTitle("Release v3.12.{}".format(i))
+                createRel.setReleaseVariables({"version": "v3.12.{}".format(i)})
+                plannedRel = templateApi.create(
+                    templateId,
+                    createRel
+                )
+                plannedRel.setAbortOnFailure(True)
+                releaseApi.start(plannedRel.id)
+                time.sleep(0.1)
+        color: '#0099CC'
+      scriptUsername: admin
+      scriptUserPassword: !value "scriptUserPassword"
+      riskProfile: Default risk profile
+    - type: xlrelease.Dashboard
+      owner: admin
+      tiles:
+      - name: Release progress
+        type: xlrelease.ReleaseProgressTile
+      - name: Release summary
+        type: xlrelease.ReleaseSummaryTile
+      - name: Resource usage
+        type: xlrelease.ResourceUsageTile
+      - name: Release timeline
+        type: xlrelease.TimelineTile
+      - name: Release health
+        type: xlrelease.ReleaseHealthTile
+      parentTemplate: Feed
+    - type: xlrelease.Dashboard
+      owner: admin
+      tiles:
+      - name: Release progress
+        type: xlrelease.ReleaseProgressTile
+      - name: Release summary
+        type: xlrelease.ReleaseSummaryTile
+      - name: Resource usage
+        type: xlrelease.ResourceUsageTile
+      - name: Release timeline
+        type: xlrelease.TimelineTile
+      - name: Release health
+        type: xlrelease.ReleaseHealthTile
+      parentTemplate: Seed
+  - template: Ecommerce App Release Process
+    scheduledStartDate: 2016-02-02T08:00:00Z
+    dueDate: 2019-07-26T13:17:20.758Z
+    phases:
+    - phase: PLAN
+      tasks:
+      - name: Create Change Request
+        type: servicenow.CreateRequestItem
+        servicenowServer: Ecommerce
+        shortDescription: PetPortal Demo
+        variableMapping:
+          pythonScript.Ticket: ${changeRequestId}
+          pythonScript.sysId: ${changeRequestSysId}
+      - name: Create User Story
+        type: jira.CreateIssue
+        jiraServer: Ecommerce
+        project: SAN
+        #^title: ${changeRequestId}: microsite feature on the ecommerce website
+        description: |-
+          This user story is for design of the microsite feature on the
+          ecommerce website. This is in relation to ${changeRequestId}
+        variableMapping:
+          pythonScript.issueId: ${jiraticket}
+      - name: Notify on Slack
+        type: slack.Notification
+        server: Ecommerce
+        channel: !value "slack_channel"
+        message: Created change request ${changeRequestId} and user story ${jiraticket}
+          for development
+      - name: User story and change request review
+        type: xlrelease.Task
+        owner: David
+        tags:
+        - approval
+      color: '#009CDB'
+    - phase: DEV
+      tasks:
+      - name: Build package
+        type: jenkins.Build
+        jenkinsServer: Ecommerce
+        jobName: petclinic-artifactory
+        variableMapping:
+          pythonScript.buildNumber: ${buildNumber}
+      - name: Code Quality Analysis
+        type: sonar.checkCompliance
+        sonarServer: Ecommerce
+        resource: org.springframework.samples:spring-petclinic
+      - name: Secure Code Analysis
+        type: fortify.checkCompliance
+        fortifyServer: Ecommerce
+        projectName: Address Book
+        projectVersion: COOL-234
+        minimumStarRating: 2
+        taskRecoverOp: RUN_SCRIPT
+      - name: Deploy to DEV
+        type: xldeploy.Deploy
+        server: Ecommerce
+        deploymentPackage: petclinic-artifactory/1.0.${buildNumber}
+        deploymentEnvironment: Environments/Dev/TEST
+      - name: Automated system testing
+        type: xlrelease.ScriptTask
+        owner: admin
+        script: |-
+          import time
+          time.sleep(5)
+          print "Performing Smoke Tests"
+      - name: Update User Story
+        type: jira.UpdateIssue
+        jiraServer: Ecommerce
+        issueId: ${jiraticket}
+        newStatus: IN PROGRESS
+        comment: Deployed to DEV
+      - name: Update change request
+        type: servicenow.UpdateRequestItem
+        servicenowServer: Ecommerce
+        sysId: ${changeRequestSysId}
+      - name: QA Control Approval
+        type: xlrelease.GateTask
+        owner: admin
+        tags:
+        - approval
+        conditions:
+        - name: Automated System testing successful ?
+          type: xlrelease.GateCondition
+        - name: Unit testing successful ?
+          type: xlrelease.GateCondition
+        - name: All manual test cases prepared and verified ?
+          type: xlrelease.GateCondition
+        - name: Code quality and security analysis desirable ?
+          type: xlrelease.GateCondition
+      - name: Notify on Slack
+        type: slack.Notification
+        server: Ecommerce
+        channel: !value "slack_channel"
+        message: Application deployed successfully to DEV environment
+      color: '#009CDB'
+    - phase: DEPLOY TO INACTIVE
+      tasks:
+      - name: Deploy to INACTIVE
+        type: xldeploy.Deploy
+        server: Ecommerce
+        deploymentApplication: Applications/petclinic-artifactory
+        deploymentVersion: 1.0.1
+        deploymentPackage: Applications/petclinic-artifactory/1.0.1
+        deploymentEnvironment: Environments/Dev/${enviro}
+      - name: Load Testing
+        type: xlrelease.ScriptTask
+        owner: admin
+        script: |-
+          import time
+          time.sleep(10)
+          print "Performing  Load Tests"
+      - name: Perform Automated Testing
+        type: xlrelease.ParallelGroup
+        tasks:
+        - name: Smoke tests
+          type: xlrelease.ScriptTask
+          owner: admin
+          script: |-
+            import time
+            time.sleep(20)
+            print "Performing Smoke Tests"
+        - name: API Testing
+          type: xlrelease.ScriptTask
+          owner: admin
+          script: |-
+            import time
+            time.sleep(5)
+            print "Performing Smoke Tests"
+      - name: Vulnerability Scan
+        type: fortify.checkCompliance
+        fortifyServer: Ecommerce
+        projectName: Address Book
+        projectVersion: COOL-234
+        minimumStarRating: 1
+      - name: Update User Story
+        type: jira.UpdateIssue
+        jiraServer: Ecommerce
+        issueId: ${jiraticket}
+        comment: Deployed to QA
+      - name: Update change request
+        type: servicenow.UpdateRequestItem
+        servicenowServer: Ecommerce
+        sysId: ${changeRequestSysId}
+      - name: QA Control Approval
+        type: xlrelease.GateTask
+        owner: admin
+        tags:
+        - approval
+        conditions:
+        - name: Load testing successful ?
+          type: xlrelease.GateCondition
+        - name: Vulnerability scan results acceptable ?
+          type: xlrelease.GateCondition
+        - name: Smoke testing successful ?
+          type: xlrelease.GateCondition
+      - name: Notify on Slack
+        type: slack.Notification
+        server: Ecommerce
+        channel: !value "slack_channel"
+        message: Application deployed successfully to TEST environment
+      color: '#009CDB'
+    - phase: PROD
+      tasks:
+      - name: Get Current Application Version in Production
+        type: xld.GetLastVersionDeployed
+        server: Ecommerce
+        environmentId: Environments/Dev/TEST
+        applicationName: petclinic-artifactory
+        variableMapping:
+          pythonScript.applicationId: ${applicationVersionInProd}
+      - name: Switch over PROD
+        type: xldeploy.Deploy
+        server: Ecommerce
+        deploymentPackage: petclinic-artifactory/1.0.${buildNumber}
+        deploymentEnvironment: Environments/Dev/${enviro}
+      - name: Verify PROD Deployment
+        type: xlrelease.GateTask
+        owner: admin
+        tags:
+        - approval
+        conditions:
+        - name: Smoke Tests Successful
+          type: xlrelease.GateCondition
+        - name: Test Transaction Successful
+          type: xlrelease.GateCondition
+      - name: Close change request
+        type: servicenow.UpdateRequestItem
+        servicenowServer: Ecommerce
+        sysId: ${changeRequestSysId}
+      - name: Update User Story
+        type: jira.UpdateIssue
+        jiraServer: Ecommerce
+        issueId: ${jiraticket}
+        comment: Deployed to QA
+      - name: Notify on Slack
+        type: slack.Notification
+        server: Ecommerce
+        channel: !value "slack_channel"
+        message: Application deployed successfully to PROD environment
+      color: '#009CDB'
+    - phase: OPERATION
+      tasks:
+      - name: Application checks
+        type: xlrelease.ScriptTask
+        owner: admin
+        script: |-
+          import time
+          import random
+          time.sleep(10)
+          print "Performing  Load Tests"
+          if random.randint(0, 1) < 1:
+              releaseVariables['monitorResult'] = False
+          else:
+              releaseVariables['monitorResult'] = True
+      - name: Monitoring Actions
+        type: xlrelease.ParallelGroup
+        tasks:
+        - name: Rollback Activities
+          type: xlrelease.SequentialGroup
+          tasks:
+          - name: Rollback - If Failure
+            type: xldeploy.Deploy
+            precondition: ${monitorResult}
+            server: Ecommerce
+            deploymentPackage: ${applicationVersionInProd}
+            deploymentEnvironment: Environments/Dev/TEST
+          - name: Failure Notification
+            type: slack.Notification
+            precondition: ${monitorResult}
+            server: Ecommerce
+            channel: !value "slack_channel"
+            message: 'The Production Deployment for App petclinic-artifactory/1.0.${buildNumber}
+              failed and has been rolled back to the previous version : ${applicationVersionInProd}'
+        - name: Success Notification
+          type: slack.Notification
+          precondition: not ${monitorResult}
+          server: Ecommerce
+          channel: !value "slack_channel"
+          message: The Production Deployment for App petclinic-artifactory/1.0.${buildNumber}
+            has been successfully done.
+      color: '#0099CC'
+    tags:
+    - ecommerce
+    - java
+    variables:
+    - type: xlrelease.StringVariable
+      key: buildNumber
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: ticket
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: changeRequestId
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: changeRequestSysId
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: changeRequestStatus
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: jiraticket
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: applicationVersionInProd
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.BooleanVariable
+      key: monitorResult
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: memoryDEV
+      requiresValue: false
+      showOnReleaseStart: false
+      label: DEV Memory
+      description: Memory for DEV MarkLogic
+      value: 16 GB
+    - type: xlrelease.StringVariable
+      key: memoryUAT
+      requiresValue: false
+      showOnReleaseStart: false
+      label: UAT Memory
+      description: Memory for UAT MarkLogic
+      value: 256 GB
+    - type: xlrelease.StringVariable
+      key: memoryPROD
+      requiresValue: false
+      showOnReleaseStart: false
+      label: PROD Memory
+      description: Memory for PROD MarkLogic
+      value: 256 GB
+    - type: xlrelease.IntegerVariable
+      key: coresDEV
+      requiresValue: false
+      showOnReleaseStart: false
+      label: DEV Cores
+      description: Cores for DEV MarkLogic
+      value: 8
+    - type: xlrelease.IntegerVariable
+      key: coresUAT
+      requiresValue: false
+      showOnReleaseStart: false
+      label: UAT Cores
+      description: Cores for UAT MarkLogic
+      value: 64
+    - type: xlrelease.IntegerVariable
+      key: coresPROD
+      requiresValue: false
+      showOnReleaseStart: false
+      label: PROD Cores
+      description: Cores for PROD MarkLogic
+      value: 64
+    - type: xlrelease.StringVariable
+      key: enviro
+      requiresValue: false
+      showOnReleaseStart: false
+      value: TEST
+    scriptUsername: admin
+    scriptUserPassword: !value "scriptUserPassword"
+    riskProfile: Default risk profile
+  - type: xlrelease.Dashboard
+    owner: admin
+    tiles:
+    - name: Release progress
+      type: xlrelease.ReleaseProgressTile
+    - name: Release health
+      type: xlrelease.ReleaseHealthTile
+    - name: Release summary
+      type: xlrelease.ReleaseSummaryTile
+    - name: Resource usage
+      type: xlrelease.ResourceUsageTile
+      width: 1
+      row: 3
+    - name: Release timeline
+      type: xlrelease.TimelineTile
+      height: 1
+      width: 1
+      row: 2
+    - name: ServiceNow tickets
+      type: servicenow.ServiceNowQueryTile
+      row: 1
+      col: 2
+      servicenowServer: Ecommerce
+      tableName: incident
+      detailsViewColumns:
+        number: number
+        short_description: short_description
+        state: state
+        priority: priority
+        assigned_to: assigned_to.display_value
+    - name: JIRA issues
+      type: jira.JiraQueryTile
+      row: 1
+      col: 0
+      jiraServer: Ecommerce
+      query: PROJECT = SAN and type = Task
+    - name: Task Progress
+      type: xlrelease.TaskProgressTile
+      row: 1
+      col: 1
+      tags:
+      - approval
+    - name: Deployment activity
+      type: deployment.DeploymentsActivityTile
+      width: 1
+      row: 2
+      col: 2
+    - name: Deployments distribution
+      type: deployment.DeploymentsDistributionTile
+      row: 2
+      col: 1
+    parentTemplate: Ecommerce App Release Process

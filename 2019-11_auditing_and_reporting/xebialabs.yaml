@@ -1,0 +1,10 @@
+apiVersion: xl/v1
+kind: Import
+metadata:
+  imports:
+    - xebialabs/xlr-environments.yaml
+    - xebialabs/xlr-configuration.yaml
+    - xebialabs/auditing_and_reporting_report.yaml
+    - xebialabs/xlr-global-configuration.yaml
+    - xebialabs/globaldashboard.yaml
+    - xebialabs/folderdashboard.yaml

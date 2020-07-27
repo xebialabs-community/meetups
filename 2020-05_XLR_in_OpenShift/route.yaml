@@ -1,0 +1,22 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+  labels:
+    app: xl-release
+  name: xl-release-route
+  namespace: demo-project
+spec:
+  host: davids-xl-release-server.127.0.0.1.nip.io
+  port:
+    targetPort: 5516-tcp
+  to:
+    kind: Service
+    name: xl-release
+status:
+  ingress:
+    - conditions:
+        - lastTransitionTime: '2020-04-30T13:36:26Z'
+          status: 'True'
+          type: Admitted
+      host: davids-xl-release-server.127.0.0.1.nip.io

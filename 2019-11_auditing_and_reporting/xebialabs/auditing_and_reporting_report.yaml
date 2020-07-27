@@ -1,0 +1,17 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+  - name: Auditing_and_Reporting
+    type: report.CustomReport
+    script: |-
+          report = "Template,Phase Name,Task Title,Owner,Team\n"
+          release = releaseApi.searchReleasesByTitle("Demo Release")[0]
+          for p in release.phases:
+             for t in p.tasks:
+                report = "%s%s,%s,%s,%s,%s\n" % ( report,release.title, p.title, t.title, t.owner, t.team)
+
+          release = releaseApi.searchReleasesByTitle("John Deere Demo")[0]
+          for p in release.phases:
+             for t in p.tasks:
+                report = "%s%s,%s,%s,%s,%s\n" % ( report,release.title, p.title, t.title, t.owner, t.team)

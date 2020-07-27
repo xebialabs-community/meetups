@@ -1,0 +1,12 @@
+2020-02-05 16:26:33,199 CRIT Supervisor running as root (no user in config file)
+2020-02-05 16:26:33,205 INFO supervisord started with pid 1
+2020-02-05 16:26:34,209 INFO spawned: 'xld' with pid 8
+2020-02-05 16:26:35,881 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-05 16:29:40,742 INFO exited: xld (exit status 0; expected)
+2020-02-05 19:26:06,663 WARN received SIGTERM indicating exit request
+2020-02-06 16:38:40,873 CRIT Supervisor running as root (no user in config file)
+2020-02-06 16:38:40,879 INFO supervisord started with pid 1
+2020-02-06 16:38:41,883 INFO spawned: 'xld' with pid 8
+2020-02-06 16:38:42,911 INFO success: xld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-02-06 16:42:01,024 INFO exited: xld (exit status 0; expected)
+2020-02-06 18:56:30,582 WARN received SIGTERM indicating exit request

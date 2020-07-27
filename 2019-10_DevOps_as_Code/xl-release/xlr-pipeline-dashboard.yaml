@@ -1,0 +1,30 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: as-code-meetup
+  children:
+  - type: xlrelease.Dashboard
+    owner: admin
+    tiles:
+    - name: Release progress
+      type: xlrelease.ReleaseProgressTile
+    - name: Release summary
+      type: xlrelease.ReleaseSummaryTile
+    - name: Resource usage
+      type: xlrelease.ResourceUsageTile
+      width: 1
+    - name: Release timeline
+      type: xlrelease.TimelineTile
+      width: 2
+    - name: Release health
+      type: xlrelease.ReleaseHealthTile
+    - name: XL Deploy deployments
+      type: xlrelease.XLDeployTile
+      row: 2
+      col: 1
+    - name: Deployment activity
+      type: deployment.DeploymentsActivityTile
+      row: 1
+      col: 2
+    parentTemplate: Create_Rest-O-Rant_Application

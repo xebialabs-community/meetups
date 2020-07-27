@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  ACCEPT_EULA: 'Y'
+kind: ConfigMap
+metadata:
+  name: xlr-config-map
+  namespace: demo-project

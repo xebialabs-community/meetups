@@ -1,0 +1,126 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+  labels:
+    app: xl-release
+  name: xl-release
+  namespace: demo-project
+spec:
+  paused: true
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: xl-release
+    deploymentconfig: xl-release
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: xl-release
+        deploymentconfig: xl-release
+    spec:
+      containers:
+      - env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: ADMIN_PASSWORD
+          value: SuperSecretPassword
+        image: xebialabs/xl-release:9.6
+        imagePullPolicy: IfNotPresent
+        name: xl-release
+        ports:
+        - containerPort: 5516
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/xebialabs/bootstrap
+          name: xl-release-1
+        - mountPath: /opt/xebialabs/xl-release-server/archive
+          name: xl-release-2
+        - mountPath: /opt/xebialabs/xl-release-server/conf
+          name: xl-release-3
+        - mountPath: /opt/xebialabs/xl-release-server/ext
+          name: xl-release-4
+        - mountPath: /opt/xebialabs/xl-release-server/hotfix
+          name: xl-release-5
+        - mountPath: /opt/xebialabs/xl-release-server/plugins
+          name: xl-release-6
+        - mountPath: /opt/xebialabs/xl-release-server/reports
+          name: xl-release-7
+        - mountPath: /opt/xebialabs/xl-release-server/repository
+          name: xl-release-8
+        - mountPath: /opt/xebialabs/xl-release-server/default-conf
+          name: volume-44dsi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - emptyDir: {}
+        name: xl-release-1
+      - emptyDir: {}
+        name: xl-release-2
+      - emptyDir: {}
+        name: xl-release-3
+      - emptyDir: {}
+        name: xl-release-4
+      - emptyDir: {}
+        name: xl-release-5
+      - emptyDir: {}
+        name: xl-release-6
+      - emptyDir: {}
+        name: xl-release-7
+      - emptyDir: {}
+        name: xl-release-8
+      - name: volume-44dsi
+        persistentVolumeClaim:
+          claimName: xlr-conf-volume
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - xl-release
+      from:
+        kind: ImageStreamTag
+        name: xl-release:9.6
+        namespace: demo-project
+      lastTriggeredImage: xebialabs/xl-release:9.6
+    type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2020-05-07T14:34:17Z
+    message: Deployment config has minimum availability.
+    status: "True"
+    type: Available
+  - lastTransitionTime: 2020-05-07T14:34:17Z
+    message: replication controller "xl-release-1" successfully rolled out
+    reason: NewReplicationControllerAvailable
+    status: "True"
+    type: Progressing
+  details:
+    causes:
+    - type: ConfigChange
+    message: config change
+  latestVersion: 1
+  observedGeneration: 6
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

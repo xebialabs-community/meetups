@@ -1,0 +1,398 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: audit_and_reporting
+  children:
+  - name: Deployments
+    type: xlrelease.DeploymentsByStageDashboard
+    owner: admin
+    tiles:
+    - type: xlrelease.PlaceholderTile
+      row: 0
+      col: 0
+      content: Development
+    - name: Current applications
+      type: deployment.CurrentApplicationsTile
+      width: 1
+      height: 1
+      row: 1
+      col: 0
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Development
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Activity
+      type: deployment.DeploymentsActivityTile
+      width: 1
+      row: 2
+      col: 0
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Development
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Total deployments
+      type: deployment.TotalDeploymentsTile
+      width: 1
+      height: 1
+      row: 4
+      col: 0
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Development
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Deployments
+      type: deployment.DeploymentsDistributionTile
+      width: 1
+      row: 5
+      col: 0
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Development
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+      height: 1
+    - name: Deployment success rate
+      type: deployment.DeploymentsSuccessRateTile
+      width: 1
+      height: 1
+      row: 6
+      col: 0
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Development
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - type: xlrelease.PlaceholderTile
+      row: 0
+      col: 1
+      content: Test
+    - name: Current applications
+      type: deployment.CurrentApplicationsTile
+      width: 1
+      height: 1
+      row: 1
+      col: 1
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Test
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Activity
+      type: deployment.DeploymentsActivityTile
+      width: 1
+      row: 2
+      col: 1
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Test
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Total deployments
+      type: deployment.TotalDeploymentsTile
+      width: 1
+      height: 1
+      row: 4
+      col: 1
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Test
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Deployments
+      type: deployment.DeploymentsDistributionTile
+      width: 1
+      row: 5
+      col: 1
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Test
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+      height: 1
+    - name: Deployment success rate
+      type: deployment.DeploymentsSuccessRateTile
+      width: 1
+      height: 1
+      row: 6
+      col: 1
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Test
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - type: xlrelease.PlaceholderTile
+      row: 0
+      col: 2
+      content: Acceptance
+    - name: Current applications
+      type: deployment.CurrentApplicationsTile
+      width: 1
+      height: 1
+      row: 1
+      col: 2
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Acceptance
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Activity
+      type: deployment.DeploymentsActivityTile
+      width: 1
+      row: 2
+      col: 2
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Acceptance
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Total deployments
+      type: deployment.TotalDeploymentsTile
+      width: 1
+      height: 1
+      row: 4
+      col: 2
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Acceptance
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Deployments
+      type: deployment.DeploymentsDistributionTile
+      width: 1
+      row: 5
+      col: 2
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Acceptance
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+      height: 1
+    - name: Deployment success rate
+      type: deployment.DeploymentsSuccessRateTile
+      width: 1
+      height: 1
+      row: 6
+      col: 2
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Acceptance
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - type: xlrelease.PlaceholderTile
+      row: 0
+      col: 3
+      content: Production
+    - name: Current applications
+      type: deployment.CurrentApplicationsTile
+      width: 1
+      height: 1
+      row: 1
+      col: 3
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Production
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Activity
+      type: deployment.DeploymentsActivityTile
+      width: 1
+      row: 2
+      col: 3
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Production
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Total deployments
+      type: deployment.TotalDeploymentsTile
+      width: 1
+      height: 1
+      row: 4
+      col: 3
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Production
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    - name: Deployments
+      type: deployment.DeploymentsDistributionTile
+      width: 1
+      row: 5
+      col: 3
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Production
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+      height: 1
+    - name: Deployment success rate
+      type: deployment.DeploymentsSuccessRateTile
+      width: 1
+      height: 1
+      row: 6
+      col: 3
+      filters:
+      - type: xlrelease.EnvironmentStageFilter
+        stage: Production
+      - type: xlrelease.DateFilter
+        timeFrame: LAST_YEAR
+    columns: 4
+    filters:
+    - type: xlrelease.DateFilter
+      timeFrame: LAST_YEAR
+  - name: DevSecOps
+    type: xlrelease.BlankDashboard
+    description: Example dashboard from the perspective of DevSecOps
+    owner: admin
+    tiles:
+    - name: Security risk profile (BlackDuck)
+      type: blackduck.BlackduckRiskProfileTile
+      row: 0
+      col: 5
+      height: 1
+      blackduckServer: Ecommerce
+      projectName: xl-react-components
+      version: master
+    - name: Risk trend (BlackDuck)
+      type: blackduck.BlackduckRiskTrendTile
+      row: 1
+      col: 0
+      width: 3
+      blackduckServer: Ecommerce
+      projectName: xl-react-components
+      versionFilterRegex: '[^\n]+'
+    - name: License risk profile (BlackDuck)
+      type: blackduck.BlackduckRiskProfileTile
+      row: 2
+      col: 5
+      height: 1
+      blackduckServer: Ecommerce
+      projectName: xl-react-components
+      version: master
+      riskType: License Risks
+    - name: Fortify SSC application compliance
+      type: fortify.FortifyComplianceTile
+      row: 0
+      col: 0
+      height: 1
+      fortifyServer: Ecommerce
+      projectName: Address Book
+      standards:
+      - 3ADB9EE4-5761-4289-8BD3-CBFCC593EBBC:CWE
+      - 5D4B75A1-FC91-4B4B-BD4D-C81BBE9604FA:MISRA C++ 2008
+      - EEE3F9E7-28D6-4456-8761-3DA56C36F4EE:OWASP Mobile 2014
+      - 1EB1EC0E-74E6-49A0-BCE5-E6603802987A:OWASP Top 10 2007
+      versionFilterRegex: '[^\n]+'
+    - name: Version summary (Fortify SSC)
+      type: fortify.FortifySummaryTile
+      row: 1
+      col: 3
+      fortifyServer: Ecommerce
+      projectName: Address Book
+      projectVersion: COOL-234
+      metrics:
+        pci_v3_1_sec10_2_1_Issues: PCI DSS 3.1 Section 10.2.1 Issues
+        PercentAudited: Issues That Are Audited
+        PercentHighPriorityIssuesAudited: High Priority Issues Audited
+        percentCriticalExposure: Critical Exposure Issues
+        FortifySecurityRating: Fortify Security Rating
+        PercentCriticalPriorityIssuesAudited: Critical Priority Issues Audited
+    - name: Operational risk profile (BlackDuck)
+      type: blackduck.BlackduckRiskProfileTile
+      row: 1
+      col: 5
+      height: 1
+      blackduckServer: Ecommerce
+      projectName: xl-react-components
+      version: master
+      riskType: Operational Risks
+    - name: Our DevSecOps Vision
+      type: xlrelease.MarkdownTile
+      row: 0
+      col: 2
+      width: 3
+      height: 1
+      content: |-
+        * __Leaning in__ over Always Saying “No”
+        * __Data & Security Science__ over Fear, Uncertainty and Doubt
+        * __Open Contribution & Collaboration__ over Security-Only Requirements
+        * __Consumable Security Services with APIs__ over Mandated Security Controls & Paperwork
+        * __Business Driven Security Scores__ over Rubber Stamp Security
+        * __Red & Blue Team Exploit Testing__ over Relying on Scans & Theoretical Vulnerabilities
+        * __24x7 Proactive Security Monitoring__ over Reacting after being Informed of an Incident
+    columns: 7
+  - name: Code Quality
+    type: xlrelease.BlankDashboard
+    description: Example dashboard for a developer perspective on release activities
+    owner: admin
+    tiles:
+    - name: This sprint - JIRA
+      type: jira.JiraQueryTile
+      width: 2
+      row: 0
+      col: 0
+      jiraServer: Ecommerce
+      query: PROJECT = SAN and type = Task
+    - name: Active tickets - JIRA
+      type: jira.JiraQueryTile
+      width: 2
+      row: 0
+      col: 2
+      jiraServer: Ecommerce
+      query: project = SAN AND issuetype = Task AND status in ("In Progress", Testing)
+        AND assignee in (xlrelease) AND text ~ "Finance"
+    - name: SonarQube analysis summary
+      type: sonar.SonarSummaryTile
+      row: 1
+      col: 0
+      width: 1
+      resource: org.springframework.samples:spring-petclinic
+      metrics:
+        minor_violations: Minor Issues
+        cognitive_complexity: Cognitive Complexity
+        complexity: Cyclomatic Complexity
+        code_smells: Code Smells
+        major_violations: Major Issues
+        info_violations: Info Issues
+      sonarServer: Ecommerce
+    - name: SonarQube metrics trend per version
+      type: sonar.SonarComplianceTile
+      row: 1
+      col: 1
+      width: 3
+      metricUnit: INT
+      resource: org.springframework.samples%3Aspring-petclinic
+      versionFilterRegex: '[^\n]+'
+      metrics:
+        minor_violations: Minor Issues
+        cognitive_complexity: Cognitive Complexity
+        complexity: Cyclomatic Complexity
+        code_smells: Code Smells
+        major_violations: Major Issues
+        info_violations: Info Issues
+      sonarServer: Ecommerce
+    - name: SonarQube code base
+      type: sonar.SonarSummaryTile
+      row: 0
+      col: 4
+      width: 1
+      height: 3
+      resource: org.springframework.samples:spring-petclinic
+      metrics:
+        duplicated_lines: Duplicated Lines
+        statements: Statements
+        generated_lines: Generated Lines
+        ncloc_language_distribution: Lines of Code Per Language
+        lines: Lines
+        classes: Classes
+        duplicated_lines_density: Duplicated Lines (%)
+        ncloc: Lines of Code
+        comment_lines: Comment Lines
+        generated_ncloc: Generated Lines of Code
+        uncovered_lines: Uncovered Lines
+      sonarServer: Ecommerce
+    columns: 5
