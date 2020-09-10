@@ -13,3 +13,4 @@
 |  2020-May   | [Setting up XLR in OpenShift & Rancher](2020-05_XLR_in_OpenShift) |
 |  2020-Jun   | [XLR Plugin Creation](2020-06_xlr-plugin-development) |
 |  2020-Jul   | [Delivery Patterns](2020-07_delivery)                 |
+|  2020-Aug   | [Kubernetes_in_Google_Cloud_Platform](2020-08_Kubernetes_in_Google_Cloud_Platform) |
