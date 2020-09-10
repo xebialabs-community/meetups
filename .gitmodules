@@ -21,4 +21,4 @@
 	url = https://github.com/xebialabs-community/xlr-slack-plugin.git
 [submodule "2020-08_kubernetes_with_deploy/spring-petclinic"]
 	path = 2020-08_kubernetes_with_deploy/spring-petclinic
-	url = https://github.com/xebialabs-community/spring-petclinic
+	url = https://github.com/xebialabs-community/spring-petclinic.git
