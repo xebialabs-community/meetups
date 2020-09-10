@@ -19,6 +19,11 @@
 [submodule "2020-04_ChatOps/xlr-slack-plugin"]
 	path = 2020-04_ChatOps/xlr-slack-plugin
 	url = https://github.com/xebialabs-community/xlr-slack-plugin.git
+
 [submodule "2020-08_kubernetes_with_deploy/spring-petclinic"]
 	path = 2020-08_kubernetes_with_deploy/spring-petclinic
 	url = https://github.com/xebialabs-community/spring-petclinic.git
+
+[submodule "2020-09_XLR_webhooks/xlr-webhooks-samples"]
+	path = 2020-09_XLR_webhooks/xlr-webhooks-samples
+	url = https://github.com/xebialabs-community/xlr-webhooks-samples.git
