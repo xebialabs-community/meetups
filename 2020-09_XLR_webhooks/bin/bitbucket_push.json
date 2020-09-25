@@ -1,0 +1,346 @@
+{
+  "push": {
+    "changes": [
+      {
+        "forced": false,
+        "old": {
+          "name": "Branch1",
+          "links": {
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commits/Branch1"
+            },
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/refs/branches/Branch1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/username/xlr-webhooks-sample/branch/Branch1"
+            }
+          },
+          "default_merge_strategy": "merge_commit",
+          "merge_strategies": [
+            "merge_commit",
+            "squash",
+            "fast_forward"
+          ],
+          "type": "branch",
+          "target": {
+            "rendered": {},
+            "hash": "9t5ef37912345b2ec4c017c9adfb01cb656789",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/9t5ef37912345b2ec4c017c9adfb01cb656789"
+              },
+              "html": {
+                "href": "https://bitbucket.org/username/xlr-webhooks-sample/commits/9t5ef37912345b2ec4c017c9adfb01cb656789"
+              }
+            },
+            "author": {
+              "raw": "user name <username2007@gmail.com>",
+              "type": "author",
+              "user": {
+                "display_name": "user name",
+                "account_id": "676767:9t5ef37912345b2344c017c9adfb01cb656789",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%9t5ef37912345b2344c017c9adfb01cb656789"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/%9t5ef37912345b2344c017c9adfb01cb656789/"
+                  },
+                  "avatar": {
+                    "href": "https://secure.gravatar.com/avatar/8f0f6d2f043a790b334554fd1688d8c7?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FMC-3.png"
+                  }
+                },
+                "nickname": "user name",
+                "type": "user",
+                "uuid": "{9t5ef37912345b44c017c9adfb01cb656789}"
+              }
+            },
+            "summary": {
+              "raw": "test created online with Bitbucket",
+              "markup": "markdown",
+              "html": "<p>test created online with Bitbucket</p>",
+              "type": "rendered"
+            },
+            "parents": [
+              {
+                "hash": "9t5ew74912345b44c017c9adfb01cb656789",
+                "type": "commit",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/9t5ew74912345b44c017c9adfb01cb656789"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/username/xlr-webhooks-sample/commits/9t5ew74912345b44c017c9adfb01cb656789"
+                  }
+                }
+              }
+            ],
+            "date": "2020-08-19T15:26:11+00:00",
+            "message": "test created online with Bitbucket",
+            "type": "commit",
+            "properties": {}
+          }
+        },
+        "links": {
+          "commits": {
+            "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commits?include=12345621af9cg8e93be13eb65c2d8e67f356&exclude=9t5ef37912345b2ec4c017c9adfb01cb656789"
+          },
+          "html": {
+            "href": "https://bitbucket.org/username/xlr-webhooks-sample/branches/compare/12345621af9cg8e93be13eb65c2d8e67f356..9t5ef37912345b2ec4c017c9adfb01cb656789"
+          },
+          "diff": {
+            "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/diff/12345621af9cg8e93be13eb65c2d8e67f356..9t5ef37912345b2ec4c017c9adfb01cb656789"
+          }
+        },
+        "created": false,
+        "commits": [
+          {
+            "rendered": {},
+            "hash": "12345621af9cg8e93be13eb65c2d8e67f356",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/12345621af9cg8e93be13eb65c2d8e67f356"
+              },
+              "comments": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/12345621af9cg8e93be13eb65c2d8e67f356/comments"
+              },
+              "patch": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/patch/12345621af9cg8e93be13eb65c2d8e67f356"
+              },
+              "html": {
+                "href": "https://bitbucket.org/username/xlr-webhooks-sample/commits/12345621af9cg8e93be13eb65c2d8e67f356"
+              },
+              "diff": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/diff/12345621af9cg8e93be13eb65c2d8e67f356"
+              },
+              "approve": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/12345621af9cg8e93be13eb65c2d8e67f356/approve"
+              },
+              "statuses": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/12345621af9cg8e93be13eb65c2d8e67f356/statuses"
+              }
+            },
+            "author": {
+              "raw": "user name <username2007@gmail.com>",
+              "type": "author",
+              "user": {
+                "display_name": "user name",
+                "account_id": "676767:9t5ef37912345b2344c017c9adfb01cb656789",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%9t5ef37912345b2344c017c9adfb01cb656789"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/%9t5ef37912345b2344c017c9adfb01cb656789/"
+                  },
+                  "avatar": {
+                    "href": "https://secure.gravatar.com/avatar/8f0f6d2f043a790b334554fd1688d8c7?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FMC-3.png"
+                  }
+                },
+                "nickname": "user name",
+                "type": "user",
+                "uuid": "{9t5ef37912345b44c017c9adfb01cb656789}"
+              }
+            },
+            "summary": {
+              "raw": "NewFile created online with Bitbucket",
+              "markup": "markdown",
+              "html": "<p>NewFile created online with Bitbucket</p>",
+              "type": "rendered"
+            },
+            "parents": [
+              {
+                "hash": "9t5ef37912345b2ec4c017c9adfb01cb656789",
+                "type": "commit",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/9t5ef37912345b2ec4c017c9adfb01cb656789"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/username/xlr-webhooks-sample/commits/9t5ef37912345b2ec4c017c9adfb01cb656789"
+                  }
+                }
+              }
+            ],
+            "date": "2020-08-19T15:28:31+00:00",
+            "message": "NewFile created online with Bitbucket",
+            "type": "commit",
+            "properties": {}
+          }
+        ],
+        "truncated": false,
+        "closed": false,
+        "new": {
+          "name": "Branch1",
+          "links": {
+            "commits": {
+              "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commits/Branch1"
+            },
+            "self": {
+              "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/refs/branches/Branch1"
+            },
+            "html": {
+              "href": "https://bitbucket.org/username/xlr-webhooks-sample/branch/Branch1"
+            }
+          },
+          "default_merge_strategy": "merge_commit",
+          "merge_strategies": [
+            "merge_commit",
+            "squash",
+            "fast_forward"
+          ],
+          "type": "branch",
+          "target": {
+            "rendered": {},
+            "hash": "12345621af9cg8e93be13eb65c2d8e67f356",
+            "links": {
+              "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/12345621af9cg8e93be13eb65c2d8e67f356"
+              },
+              "html": {
+                "href": "https://bitbucket.org/username/xlr-webhooks-sample/commits/12345621af9cg8e93be13eb65c2d8e67f356"
+              }
+            },
+            "author": {
+              "raw": "user name <username2007@gmail.com>",
+              "type": "author",
+              "user": {
+                "display_name": "user name",
+                "account_id": "676767:9t5ef37912345b2344c017c9adfb01cb656789",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%9t5ef37912345b2344c017c9adfb01cb656789"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/%9t5ef37912345b2344c017c9adfb01cb656789/"
+                  },
+                  "avatar": {
+                    "href": "https://secure.gravatar.com/avatar/8f0f6d2f043a790b334554fd1688d8c7?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FMC-3.png"
+                  }
+                },
+                "nickname": "user name",
+                "type": "user",
+                "uuid": "{9t5ef37912345b44c017c9adfb01cb656789}"
+              }
+            },
+            "summary": {
+              "raw": "NewFile created online with Bitbucket",
+              "markup": "markdown",
+              "html": "<p>NewFile created online with Bitbucket</p>",
+              "type": "rendered"
+            },
+            "parents": [
+              {
+                "hash": "9t5ef37912345b2ec4c017c9adfb01cb656789",
+                "type": "commit",
+                "links": {
+                  "self": {
+                    "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample/commit/9t5ef37912345b2ec4c017c9adfb01cb656789"
+                  },
+                  "html": {
+                    "href": "https://bitbucket.org/username/xlr-webhooks-sample/commits/9t5ef37912345b2ec4c017c9adfb01cb656789"
+                  }
+                }
+              }
+            ],
+            "date": "2020-08-19T15:28:31+00:00",
+            "message": "NewFile created online with Bitbucket",
+            "type": "commit",
+            "properties": {}
+          }
+        }
+      }
+    ]
+  },
+  "actor": {
+    "display_name": "user name",
+    "account_id": "676767:9t5ef37912345b2344c017c9adfb01cb656789",
+    "links": {
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/users/%9t5ef37912345b2344c017c9adfb01cb656789"
+      },
+      "html": {
+        "href": "https://bitbucket.org/%9t5ef37912345b2344c017c9adfb01cb656789/"
+      },
+      "avatar": {
+        "href": "https://secure.gravatar.com/avatar/8f0f6d2f043a790b334554fd1688d8c7?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FMC-3.png"
+      }
+    },
+    "nickname": "user name",
+    "type": "user",
+    "uuid": "{9t5ef37912345b44c017c9adfb01cb656789}"
+  },
+  "repository": {
+    "scm": "git",
+    "website": null,
+    "uuid": "{382c9405-8150-4e50-ab3c-efa1bc6286df}",
+    "links": {
+      "self": {
+        "href": "https://api.bitbucket.org/2.0/repositories/username/xlr-webhooks-sample"
+      },
+      "html": {
+        "href": "https://bitbucket.org/username/xlr-webhooks-sample"
+      },
+      "avatar": {
+        "href": "https://bytebucket.org/ravatar/%7B382c9405-8150-4e50-ab3c-efa1bc6286df%7D?ts=default"
+      }
+    },
+    "project": {
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/workspaces/username/projects/TES"
+        },
+        "html": {
+          "href": "https://bitbucket.org/username/workspace/projects/TES"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/account/user/username/projects/TES/avatar/32?ts=1597348647"
+        }
+      },
+      "type": "project",
+      "name": "hello-world",
+      "key": "TES",
+      "uuid": "{85911f40-0c1d-44a6-a1af-e06886b2c825}"
+    },
+    "full_name": "username/xlr-webhooks-sample",
+    "owner": {
+      "display_name": "user name",
+      "account_id": "676767:9t5ef37912345b2344c017c9adfb01cb656789",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/users/%9t5ef37912345b2344c017c9adfb01cb656789"
+        },
+        "html": {
+          "href": "https://bitbucket.org/%9t5ef37912345b2344c017c9adfb01cb656789/"
+        },
+        "avatar": {
+          "href": "https://secure.gravatar.com/avatar/8f0f6d2f043a790b334554fd1688d8c7?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FMC-3.png"
+        }
+      },
+      "nickname": "user name",
+      "type": "user",
+      "uuid": "{9t5ef37912345b44c017c9adfb01cb656789}"
+    },
+    "workspace": {
+      "name": "user name",
+      "type": "workspace",
+      "uuid": "{9t5ef37912345b44c017c9adfb01cb656789}",
+      "links": {
+        "self": {
+          "href": "https://api.bitbucket.org/2.0/workspaces/username"
+        },
+        "html": {
+          "href": "https://bitbucket.org/username/"
+        },
+        "avatar": {
+          "href": "https://bitbucket.org/workspaces/username/avatar/?ts=1597348608"
+        }
+      },
+      "slug": "username"
+    },
+    "type": "repository",
+    "is_private": true,
+    "name": "hello-world"
+  }
+}
