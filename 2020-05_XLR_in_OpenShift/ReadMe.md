@@ -7,3 +7,5 @@ that your pv can point to to create a deployment other than the intital deployme
 This is for xl release tag 9.6 if you want to use a different image you must
 update the image.yaml file with the tag you would like. (latetst is not a supported
 tag under xl release)
+
+NOTE: Do not default-conf directory use conf directory. This will save you from issues with the java keystore
