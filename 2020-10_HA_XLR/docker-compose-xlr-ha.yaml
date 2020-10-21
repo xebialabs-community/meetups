@@ -1,0 +1,70 @@
+version: "3"
+services:
+  xl-release-master:
+    image: xebialabs/xl-release:9.7.2
+    depends_on:
+      - postgresql
+    networks:
+      - xlr-network
+    environment:
+      - ADMIN_PASSWORD=${XLR_ADMIN_PASS}
+      - ACCEPT_EULA=Y
+      - XL_CLUSTER_MODE=full
+      - XL_DB_URL=jdbc:postgresql://postgresql:5432/xlrelease
+      - XL_DB_USERNAME=xlrelease
+      - XL_DB_PASSWORD=xlrelease
+      - XL_REPORT_DB_URL=jdbc:postgresql://postgresql:5432/xlarchive
+      - XL_REPORT_DB_USERNAME=xlarchive
+      - XL_REPORT_DB_PASSWORD=xlarchive
+      - FORCE_UPGRADE=true
+    #  - XL_LICENSE=YOUR_LICENSE_IN_BASE64_STRING
+    volumes:
+      - $PWD/xl-release/new-conf:/opt/xebialabs/xl-release-server/conf # provide xl-release-licence.lic file in the conf folder
+      - $PWD/xl-release/plugins:/opt/xebialabs/xl-release-server/plugins/__local__
+
+  xl-release-lb:
+    image: xebialabsunsupported/haproxy
+    container_name: xl-release-lb
+    depends_on:
+      - xl-release-master
+    ports:
+      - "8081:5000"
+      - "1936:1936"
+    networks:
+      - xlr-network
+    environment:
+      BACKENDS: "xl-release-master:5516"
+      HTTPCHK: "GET /ha/health"
+      DNS_ENABLED: "true"
+      COOKIES_ENABLED: "true"
+      COOKIES_PARAMS: "JSESSIONID prefix"
+      LOG_LEVEL: "info"
+      TIMEOUT_CONNECT: 60000
+
+  postgresql:
+    image: postgres:10.5
+    container_name: postgresql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+    command: postgres
+    networks:
+      - xlr-network
+    volumes:
+      # - $PWD/postgres-data:/var/lib/postgresql/data
+      - $PWD/postgres:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgresql
+    networks:
+      - xlr-network
+
+
+networks:
+  xlr-network:
+    driver: bridge

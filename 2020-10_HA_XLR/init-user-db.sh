@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e
+set -u
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
+CREATE USER xlrelease WITH
+  NOSUPERUSER
+  NOCREATEDB
+  NOCREATEROLE
+  ENCRYPTED PASSWORD 'xlrelease';
+
+CREATE USER xlarchive WITH
+  NOSUPERUSER
+  NOCREATEDB
+  NOCREATEROLE
+  ENCRYPTED PASSWORD 'xlarchive';
+
+CREATE DATABASE xlrelease;
+GRANT ALL PRIVILEGES ON DATABASE xlrelease TO xlrelease;
+
+CREATE DATABASE xlarchive;
+GRANT ALL PRIVILEGES ON DATABASE xlarchive TO xlarchive;
+
+EOSQL
+# createdb -U postgres xlrdb
+# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "xlrdb" <<-EOSQL
+#
+# CREATE USER xlrdb WITH
+#   NOSUPERUSER
+#   NOCREATEDB
+#   NOCREATEROLE
+#   ENCRYPTED PASSWORD 'xlrdb';
+#
+# GRANT ALL PRIVILEGES ON DATABASE xlrdb TO xlrdb;
+# EOSQLCREATE USER xlr-report-db WITH
+#   NOSUPERUSER
+#   NOCREATEDB
+#   NOCREATEROLE
+#   ENCRYPTED PASSWORD 'xlr-report-db';
+#
+# CREATE DATABASE xlr-report-db;
+# GRANT ALL PRIVILEGES ON DATABASE xlr-report-db TO xlr-report-db;
+#
+# EOSQL
