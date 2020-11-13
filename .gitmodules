@@ -25,9 +25,9 @@
 [submodule "2020-09_XLR_webhooks/xlr-webhooks-samples"]
 	path = 2020-09_XLR_webhooks/xlr-webhooks-samples
 	url = https://github.com/xebialabs-community/xlr-webhooks-samples.git
-[submodule "2020-11-Cusstom_UI_Extensions/xlr-logreport-plugin"]
-	path = 2020-11-Cusstom_UI_Extensions/xlr-logreport-plugin
+[submodule "2020-11-Custom_UI_Extensions/xlr-logreport-plugin"]
+	path = 2020-11-Custom_UI_Extensions/xlr-logreport-plugin
 	url = https://github.com/xebialabs-community/xlr-logreport-plugin.git
-[submodule "2020-11-Cusstom_UI_Extensions/xld-logreport-plugin"]
-	path = 2020-11-Cusstom_UI_Extensions/xld-logreport-plugin
+[submodule "2020-11-Custom_UI_Extensions/xld-logreport-plugin"]
+	path = 2020-11-Custom_UI_Extensions/xld-logreport-plugin
 	url = https://github.com/xebialabs-community/xld-logreport-plugin.git

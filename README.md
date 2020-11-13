@@ -14,4 +14,5 @@
 |  2020-Jun   | [XLR Plugin Creation](2020-06_xlr-plugin-development) |
 |  2020-Jul   | [Delivery Patterns](2020-07_delivery)                 |
 |  2020-Aug   | [Kubernetes with Deploy](2020-08_kubernetes_with_deploy)|
-|  2020-Oct   | [High Availability XLR](2020-10_HA_XLR)               | 
+|  2020-Oct   | [High Availability XLR](2020-10_HA_XLR)               |
+|  2020-Nov   | [Custom UI Extensions](2020-11-Custom_UI_Extensions)  |
