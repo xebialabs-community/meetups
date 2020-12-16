@@ -50,8 +50,6 @@ spec:
           name: xl-release-1
         - mountPath: /opt/xebialabs/xl-release-server/archive
           name: xl-release-2
-        - mountPath: /opt/xebialabs/xl-release-server/conf
-          name: xl-release-3
         - mountPath: /opt/xebialabs/xl-release-server/ext
           name: xl-release-4
         - mountPath: /opt/xebialabs/xl-release-server/hotfix
@@ -62,8 +60,8 @@ spec:
           name: xl-release-7
         - mountPath: /opt/xebialabs/xl-release-server/repository
           name: xl-release-8
-        - mountPath: /opt/xebialabs/xl-release-server/default-conf
-          name: volume-44dsi
+        - mountPath: /opt/xebialabs/xl-release-server/conf
+          name: xl-release-3
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -75,8 +73,6 @@ spec:
       - emptyDir: {}
         name: xl-release-2
       - emptyDir: {}
-        name: xl-release-3
-      - emptyDir: {}
         name: xl-release-4
       - emptyDir: {}
         name: xl-release-5
@@ -86,7 +82,7 @@ spec:
         name: xl-release-7
       - emptyDir: {}
         name: xl-release-8
-      - name: volume-44dsi
+      - name: xl-release-3
         persistentVolumeClaim:
           claimName: xlr-conf-volume
   test: false
