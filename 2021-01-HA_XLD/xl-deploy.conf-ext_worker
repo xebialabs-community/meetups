@@ -1,0 +1,38 @@
+in-process-worker=false
+# Task queue
+queue {
+    # name = "xld-tasks-queue"
+    backoff {}
+    external {
+        # External task queue, used only if xl.task.in-process-worker=false
+        jms-driver-classname="org.apache.activemq.ActiveMQConnectionFactory"
+        jms-password="{aes:v0}12EkKTp6m2OR0EYOxRbaN3N7RgLB2d7Gy2Baor720qUv84Yr0ZapgiscplDO2m/i"
+        jms-url="failover:(ssl://b-7cfc4280-4aaf-4255-8e9f-12b1a00bff95-1.mq.us-east-2.amazonaws.com:61617,mqtt+ssl://b-7cfc4280-4aaf-4255-8e9f-12b1a00bff95-2.mq.us-east-2.amazonaws.com:61617)"
+        jms-username=xebialabs
+    }
+    in-process {}
+}
+repository {
+    # Base location for the repository.
+    # The internal database and the file artifacts will be in subfolders of this location (if not otherwise configured).
+    # root = "repository"
+    artifacts {
+        # Type of artifact storage to use. Valid values are:
+        # - "file": use the specified file system location for storing artifacts.
+        # - "db": use the database for storing artifacts.
+        type=db
+    }
+    # Database connection configuration for repository data
+    database {
+        connection-timeout=30000
+        # Driver class name. Database specific.
+        db-driver-classname="org.postgresql.Driver"
+        db-password="{aes:v0}lIDMBCy+LBDuGKyn95Ov42jlCYgLhgwfZi7yF7/KUpw="
+        # Connection url. Database specific format.
+        db-url="jdbc:postgresql://xld-ha-test.cgfqzjp0dpcq.us-east-2.rds.amazonaws.com:5432/xld"
+        # Username for database connection.
+        db-username=xldeploy
+        # Maximum size of application level connection pool.
+        max-pool-size=10
+    }
+}

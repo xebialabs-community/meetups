@@ -1,0 +1,48 @@
+image: postgres:10.1
+port 5432
+
+POSTGRES_DB=xld-db
+POSTGRES_PASSWORD=admin
+POSTGRES_USER=postgres
+
+command: postgres
+
+
+image:rabbitmq:3.7-management
+
+ampq-port=5672
+epmd-port=4369
+internode-comm=25672
+http-api=15672
+
+
+RABBITMQ_LOOPBACK_USERS=none
+RABBITMQ_DEFAULT_USER=rabbitmq
+RABBITMQ_DEFAULT_PASS=admin
+
+image:xebialabs/xl-deploy:9.7
+
+XLD_TASK_QUEUE_USERNAME=rabbitmq
+XLD_TASK_QUEUE_URL=amqp://rabbitmq:5672
+XLD_TASK_QUEUE_PASSWORD=admin
+XLD_TASK_QUEUE_DRIVER_CLASS_NAME=com.rabbitmq.jms.admin.RMQConnectionFactory
+XLD_IN_PROCESS=false
+XL_DB_USERNAME=postgres
+XL_DB_URL=jdbc:postgresql://postgres:5432/xld-db
+XL_DB_PASSWORD=admin
+USE_IP_AS_HOSTNAME=false
+ADMIN_PASSWORD=admin
+ACCEPT_EULA=Y
+
+http=4516
+master-worker=8180
+
+
+/data/rancher/xebialabs/xld/conf
+/opt/xebialabs/xl-deploy-server/conf
+
+worker updates
+
+worker -api http://xld-stateful.default.192.168.7.65.xip.io/ -master ip-addrees:8180
+
+/data/rancher/xebialabs/xld-worker/conf
