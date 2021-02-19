@@ -16,5 +16,5 @@
 |  2020-Aug   | [Kubernetes with Deploy](2020-08_kubernetes_with_deploy)|
 |  2020-Oct   | [High Availability XLR](2020-10_HA_XLR)               |
 |  2020-Nov   | [Custom UI Extensions](2020-11-Custom_UI_Extensions)  |
-|  2021-Jan   | [High Availability XLD](2021-01_HA_XLD)               |
+|  2021-Jan   | [High Availability XLD](2021-01-HA_XLD)               |
 |  2021-Feb   | [Advanced Authentication with Keycloak](2021-02-18-Advanced_Authentication_with_Keycloak)               |
