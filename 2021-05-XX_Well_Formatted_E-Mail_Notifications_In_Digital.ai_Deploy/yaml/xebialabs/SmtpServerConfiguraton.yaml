@@ -1,0 +1,15 @@
+---
+apiVersion: xl-deploy/v1
+kind: Configuration
+spec:
+- name: Configuration/defaultMailServer
+  type: mail.SmtpServer
+  host: !value "defaultMailServerHost"
+  port: 587
+  username: !value "defaultMailServerUsername"
+  password: !value "defaultMailServerPassword"
+  fromAddress: !value "defaultMailServerFromAddress"
+  testAddress: rbroker@digital.ai
+  smtpProperties:
+    mail.smtp.starttls.enable: "true"
+    mail.smtp.auth: "true"

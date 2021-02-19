@@ -1,0 +1,6 @@
+piVersion: xl/v1
+kind: Import
+metadata:
+  imports:
+    - xebialabs/SmtpServerConfiguraton.yaml
+    - xebialabs/PetPortalConfiguraton.yaml
