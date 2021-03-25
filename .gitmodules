@@ -34,3 +34,6 @@
 [submodule "2021-02-18-Advanced_Authentication_with_Keycloak/devops-keycloak-examples"]
 	path = 2021-02-18-Advanced_Authentication_with_Keycloak/devops-keycloak-examples
 	url = https://github.com/xebialabs-community/devops-keycloak-examples.git
+[submodule "2021-03-18-Deploying_to_EKS/spring-petclinic"]
+	path = 2021-03-18-Deploying_to_EKS/spring-petclinic
+	url = https://github.com/xebialabs-community/spring-petclinic
