@@ -37,3 +37,6 @@
 [submodule "2021-03-18-Deploying_to_EKS/spring-petclinic"]
 	path = 2021-03-18-Deploying_to_EKS/spring-petclinic
 	url = https://github.com/xebialabs-community/spring-petclinic
+[submodule "2021-04-22_Getting_Started_with_Stitch/stitch-by-example"]
+	path = 2021-04-22_Getting_Started_with_Stitch/stitch-by-example
+	url = https://github.com/xebialabs-community/stitch-by-example.git
