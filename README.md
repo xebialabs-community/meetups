@@ -19,3 +19,4 @@
 |  2021-Jan   | [High Availability XLD](2021-01-HA_XLD)               |
 |  2021-Feb   | [Advanced Authentication with Keycloak](2021-02-18-Advanced_Authentication_with_Keycloak)               |
 |  2021-Mar   | [Deploying to EKS](2021-03-18-Deploying_to_EKS)       |
+|  2021-Apr   | [Getting Started with Stitch](2021-04-22_Getting_Started_with_Stitch)       |
