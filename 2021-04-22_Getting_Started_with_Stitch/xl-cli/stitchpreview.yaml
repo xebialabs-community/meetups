@@ -1,0 +1,9 @@
+---
+apiVersion: xl-deploy/v1
+kind: StitchDryRun
+spec:
+   package: Applications/PetPortalApps/PetClinic-Stitch/1.0
+   environment: Environments/inhouse/DEV/rancher-test-test
+   stitchSource: Configuration/Stitch_Templates/Stitch_Rules
+   branchName: main
+
