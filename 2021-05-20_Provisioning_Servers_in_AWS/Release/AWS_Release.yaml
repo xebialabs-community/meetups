@@ -1,0 +1,153 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: AWS-Meetup
+  children:
+  - template: Provision And Deploy Pet Clinic to AWS
+    scheduledStartDate: 2020-12-13T14:00:00Z
+    phases:
+    - phase: Prep
+      tasks:
+      - name: Housekeeping
+        type: xlrelease.ScriptTask
+        script: "from datetime import date\n\ntoday = date.today()\ntitle = \"Release\
+          \ Pet Clinic %s for ${release.title}\" % today\nprint(title)\nrelease =\
+          \ getCurrentRelease()\nrelease.title = title\n\nreleaseApi.updateRelease(release)"
+      color: '#991C71'
+    - phase: Create Environment
+      tasks:
+      - name: Provision Pet Clinic Hosts
+        type: xldeploy.Deploy
+        server: !value "XLDeployServer"
+        deploymentApplication: Applications/PetPortalHosts/servers
+        deploymentPackage: "Applications/PetPortalHosts/servers/${PetPortalHostsVersion}"
+        deploymentEnvironment: Environments/Amazon/terraform/AWS
+      - name: Get Web Server Address
+        type: xld.GetCIMapPropertyKey
+        server: !value "XLDeployServer"
+        ciID: Environments/rrb-aws/TEST-dic
+        ciPropertyName: entries
+        ciPropertyNameKey: webserver_public_dns
+        variableMapping:
+          pythonScript.ciPropertyValue: "${webURL}"
+      - name: script
+        type: xlrelease.ScriptTask
+        script: "webserver = releaseVariables['webURL']\n\nprint(\"Webserver URL =\
+          \ http://%s/\" % webserver)\n\nreleaseVariables['webURL'] = \"http://%s/\"\
+          \ % webserver"
+      - name: Add CIs to New Environment
+        type: xld.UpdateCIProperty
+        server: !value "XLDeployServer"
+        ciID: Environments/rrb-aws/TEST
+        ciProperty: members
+        propertyValue: "[       \"Infrastructure/${project}/${env}/webserver/apache\"\
+          ,       \"Infrastructure/${project}/${env}/webserver\",       \"Infrastructure/${project}/${env}/appserver\"\
+          ,       \"Infrastructure/${project}/${env}/appserver/jbosss\",       \"\
+          Infrastructure/${project}/${env}/appserver/mysqldb\" ]"
+      - name: Verify App Server
+        type: xldeploy.Controltask
+        server: !value "XLDeployServer"
+        ciId: Infrastructure/rrb-aws/TEST/appserver
+        taskName: checkConnection
+      - name: Verify MySQL Server
+        type: xldeploy.Controltask
+        server: !value "XLDeployServer"
+        ciId: Infrastructure/rrb-aws/TEST/appserver/mysqldb
+        taskName: check
+      - name: Verify Web Server
+        type: xldeploy.Controltask
+        server: !value "XLDeployServer"
+        ciId: Infrastructure/rrb-aws/TEST/webserver
+        taskName: checkConnection
+      color: '#65747C'
+    - phase: Deploy PetClinic
+      tasks:
+      - name: Deploy PetClinic
+        type: xldeploy.Deploy
+        server: !value "XLDeployServer"
+        deploymentApplication: Applications/PetPortalApps/PetPortal
+        deploymentVersion: 1.0-0
+        deploymentPackage: Applications/PetPortalApps/PetPortal/1.0-0
+        deploymentEnvironment: Environments/rrb-aws/TEST
+      - name: Check Site
+        type: webhook.XmlWebhook
+        URL: "${webURL}"
+      - name: Verify Deployment
+        type: xlrelease.GateTask
+        description: "Check Website\n* ${webURL}"
+      color: '#498500'
+    - phase: Undeploy PetClinic
+      tasks:
+      - name: UnDeploy PetClinic
+        type: xldeploy.Undeploy
+        server: !value "XLDeployServer"
+        deployedApplication: Environments/rrb-aws/TEST/PetPortal
+      - name: Verify Undeployment
+        type: xlrelease.GateTask
+      color: '#CC4A3C'
+    - phase: Remove Environment
+      tasks:
+      - name: Remove CIs to New Environment
+        type: xld.UpdateCIProperty
+        server: !value "XLDeployServer"
+        ciID: Environments/rrb-aws/TEST
+        ciProperty: members
+        propertyValue: "[ ]"
+      - name: Remove Pet Clinic Hosts
+        type: xldeploy.Undeploy
+        server: !value "XLDeployServer"
+        deployedApplication: Environments/Amazon/terraform/AWS/servers
+      color: '#FFAB00'
+    tags:
+    - aws
+    variables:
+    - type: xlrelease.StringVariable
+      key: dicValue
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: webURL
+      requiresValue: false
+      showOnReleaseStart: false
+    - type: xlrelease.StringVariable
+      key: PetPortalHostsVersion
+      value: 3.3.1
+    - type: xlrelease.StringVariable
+      key: project
+      value: rrb-aws
+    - type: xlrelease.StringVariable
+      key: env
+      requiresValue: false
+      showOnReleaseStart: false
+      value: TEST
+    scriptUsername: rick
+    scriptUserPassword: !value "scriptUserPassword"
+    extensions:
+    - name: Dashboard
+      type: xlrelease.Dashboard
+      owner: rick
+      tiles:
+      - name: Release progress
+        type: xlrelease.ReleaseProgressTile
+      - name: Release summary
+        type: xlrelease.ReleaseSummaryTile
+      - name: Resource usage
+        type: xlrelease.ResourceUsageTile
+        width: 1
+      - name: Release timeline
+        type: xlrelease.TimelineTile
+      - name: Release health
+        type: xlrelease.ReleaseHealthTile
+      - name: XL Deploy deployments
+        type: xlrelease.XLDeployTile
+        row: 2
+        col: 2
+      - name: Current applications
+        type: deployment.CurrentApplicationsTile
+        row: 2
+        col: 1
+        filters:
+        - type: xlrelease.DateFilter
+          timeFrame: LAST_MONTH
+    riskProfile: Default risk profile

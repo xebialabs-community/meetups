@@ -20,3 +20,4 @@
 |  2021-Feb   | [Advanced Authentication with Keycloak](2021-02-18-Advanced_Authentication_with_Keycloak)               |
 |  2021-Mar   | [Deploying to EKS](2021-03-18-Deploying_to_EKS)       |
 |  2021-Apr   | [Getting Started with Stitch](2021-04-22_Getting_Started_with_Stitch)       |
+|  2021-May   | [Provisioning Servers in AWS with Digital.ai Deploy and Terraform](2021-05-20_Provisioning_Servers_in_AWS)       |
