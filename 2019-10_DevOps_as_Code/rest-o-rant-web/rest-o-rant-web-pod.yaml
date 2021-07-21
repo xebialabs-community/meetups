@@ -48,7 +48,7 @@ spec:
           rules:
           - name: rule1
             type: k8s.IngressRuleSpec
-            host: rest-o-rant-ingress.default.67.149.64.92.xip.io
+            host: rest-o-rant-ingress.default.192.168.17.11.nip.io
             paths:
             - name: root
               type: k8s.IngressPathSpec
