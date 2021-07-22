@@ -14,7 +14,7 @@ spec:
       col: 0
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
     - name: Avg. task duration
       type: xlrelease.AvgTaskDurationTile
@@ -22,7 +22,7 @@ spec:
       col: 1
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
     - name: Deployment activity
       type: deployment.DeploymentsActivityTile
@@ -30,7 +30,7 @@ spec:
       col: 0
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
     - name: Deployments distribution
       type: deployment.DeploymentsDistributionTile
@@ -38,7 +38,7 @@ spec:
       col: 1
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
     - name: Deployment success rate
       type: deployment.DeploymentsSuccessRateTile
@@ -46,7 +46,7 @@ spec:
       col: 2
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
     - name: Current applications
       type: deployment.CurrentApplicationsTile
@@ -54,7 +54,7 @@ spec:
       col: 2
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
     - name: Task efficiency
       type: xlrelease.TaskEfficiencyTile
@@ -62,7 +62,7 @@ spec:
       col: 2
       filters:
       - type: xlrelease.FolderFilter
-        folderId: Folderf75f3e7e48da41188c33a8e759c45bf0
+        folder: as-code-meetup
       - type: xlrelease.DateFilter
       width: 1
       height: 1
